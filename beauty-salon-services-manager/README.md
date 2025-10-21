@@ -60,19 +60,21 @@ The Beauty Salon Services Manager plugin provides a complete solution for beauty
 1. Go to **Beauty Services > Service Groups**
 2. Add your service categories (e.g., "Facial Treatments", "Laser Epilation", "Massage Therapy")
 3. Optionally add descriptions to each group
+4. **Optional**: Upload a category icon (JPG, PNG, or SVG) for visual identification
 
 ### Step 2: Create Services
 
 1. Go to **Beauty Services > Add New Service**
 2. Enter the service title
 3. Add a detailed description in the content editor
-4. Set a featured image
-5. Fill in the Service Details:
+4. Set a featured image (used for full display mode)
+5. **Optional**: Upload a Service Icon in the sidebar (for icon display mode)
+6. Fill in the Service Details:
    - **Time Duration**: e.g., "30 minutes" or "1 hour"
    - **Price**: e.g., "$50.00" or "€45"
    - **Additional Notes**: Any extra information
-6. Assign the service to one or more Service Groups
-7. Click **Publish**
+7. Assign the service to one or more Service Groups
+8. Click **Publish**
 
 ### Step 3: Display Services with Elementor
 
@@ -136,6 +138,12 @@ You can now edit individual service pages and archive pages using Elementor:
   - **Top**: Align content to top
   - **Middle**: Center content vertically
   - **Bottom**: Align content to bottom
+- **Image Display Mode**: Control how images are displayed
+  - **Full Image**: Standard full-width image (default)
+  - **Small Image with Padding**: Smaller image centered with padding
+  - **Icon/Small Icon**: Display as small icon (60-80px)
+- **Use Service Icon**: When in icon mode, use the uploaded service icon instead of featured image
+- **Image/Icon Padding**: Adjust padding around small images and icons
 - **Show Service Title**: Toggle service titles
 - **Show Service Description**: Toggle service descriptions
 - **Description Length**: Number of words to show in excerpt

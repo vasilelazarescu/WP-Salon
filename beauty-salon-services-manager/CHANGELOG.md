@@ -23,6 +23,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Display Options (Image, Title, Description, Time, Price, Button)
   - **Card Layout Options**: Vertical, Horizontal (Image Left), Horizontal (Image Right)
   - **Vertical Alignment Options**: Top, Middle, Bottom (for horizontal layouts)
+  - **Image Display Modes**: Full Image, Small Image with Padding, Icon/Small Icon
+  - **Service Icon Support**: Upload custom icons for services, display in icon mode
+  - **Category Icon Support**: Upload icons for service groups/categories
+  - Image/Icon padding controls
   - Layout Controls (Responsive Columns, Gaps)
   - Complete Styling Options for all elements
   - Responsive design: Horizontal layouts automatically switch to vertical on tablets and mobile

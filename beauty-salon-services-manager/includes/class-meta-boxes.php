@@ -19,6 +19,15 @@ class BSLM_Meta_Boxes {
             'normal',
             'high'
         );
+
+        add_meta_box(
+            'bslm_service_icon',
+            __('Service Icon', 'beauty-salon-services-manager'),
+            array($this, 'render_service_icon_meta_box'),
+            'bslm_service',
+            'side',
+            'default'
+        );
     }
 
     /**
@@ -133,5 +142,99 @@ class BSLM_Meta_Boxes {
             $notes = sanitize_textarea_field($_POST['bslm_service_notes']);
             update_post_meta($post_id, '_bslm_service_notes', $notes);
         }
+
+        // Save service icon
+        if (isset($_POST['bslm_service_icon'])) {
+            $icon_id = absint($_POST['bslm_service_icon']);
+            if ($icon_id) {
+                update_post_meta($post_id, '_bslm_service_icon', $icon_id);
+            } else {
+                delete_post_meta($post_id, '_bslm_service_icon');
+            }
+        }
+    }
+
+    /**
+     * Render service icon meta box.
+     *
+     * @param WP_Post $post The post object.
+     */
+    public function render_service_icon_meta_box($post) {
+        // Add nonce for security
+        wp_nonce_field('bslm_service_details_nonce', 'bslm_service_details_nonce');
+
+        // Retrieve current icon
+        $icon_id = get_post_meta($post->ID, '_bslm_service_icon', true);
+        $icon_url = $icon_id ? wp_get_attachment_url($icon_id) : '';
+
+        // Enqueue media uploader
+        wp_enqueue_media();
+        ?>
+        <div class="bslm-service-icon-upload">
+            <input type="hidden" id="bslm_service_icon" name="bslm_service_icon" value="<?php echo esc_attr($icon_id); ?>">
+            <div class="bslm-icon-preview" style="margin-bottom: 10px; text-align: center;">
+                <?php if ($icon_url) : ?>
+                    <img src="<?php echo esc_url($icon_url); ?>" style="max-width: 100%; height: auto; max-height: 150px;" />
+                <?php else : ?>
+                    <img src="" style="max-width: 100%; height: auto; max-height: 150px; display: none;" />
+                <?php endif; ?>
+            </div>
+            <p style="text-align: center;">
+                <button type="button" class="button button-secondary bslm-upload-service-icon-button" style="width: 100%;">
+                    <?php _e('Upload Icon', 'beauty-salon-services-manager'); ?>
+                </button>
+            </p>
+            <p style="text-align: center;">
+                <button type="button" class="button button-secondary bslm-remove-service-icon-button" style="width: 100%; <?php echo $icon_url ? '' : 'display: none;'; ?>">
+                    <?php _e('Remove Icon', 'beauty-salon-services-manager'); ?>
+                </button>
+            </p>
+            <p class="description">
+                <?php _e('Upload an icon for this service. This can be displayed instead of or alongside the featured image. Supports JPG, PNG, SVG.', 'beauty-salon-services-manager'); ?>
+            </p>
+        </div>
+
+        <script>
+        jQuery(document).ready(function($) {
+            var mediaUploader;
+
+            $('.bslm-upload-service-icon-button').on('click', function(e) {
+                e.preventDefault();
+
+                if (mediaUploader) {
+                    mediaUploader.open();
+                    return;
+                }
+
+                mediaUploader = wp.media({
+                    title: 'Choose Service Icon',
+                    button: {
+                        text: 'Use this icon'
+                    },
+                    library: {
+                        type: ['image']
+                    },
+                    multiple: false
+                });
+
+                mediaUploader.on('select', function() {
+                    var attachment = mediaUploader.state().get('selection').first().toJSON();
+                    $('#bslm_service_icon').val(attachment.id);
+                    $('.bslm-icon-preview img').attr('src', attachment.url).show();
+                    $('.bslm-remove-service-icon-button').show();
+                });
+
+                mediaUploader.open();
+            });
+
+            $('.bslm-remove-service-icon-button').on('click', function(e) {
+                e.preventDefault();
+                $('#bslm_service_icon').val('');
+                $('.bslm-icon-preview img').attr('src', '').hide();
+                $(this).hide();
+            });
+        });
+        </script>
+        <?php
     }
 }

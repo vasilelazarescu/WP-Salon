@@ -226,6 +226,57 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
         );
 
         $this->add_control(
+            'image_display_mode',
+            array(
+                'label' => __('Image Display Mode', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'default' => 'full',
+                'options' => array(
+                    'full' => __('Full Image', 'beauty-salon-services-manager'),
+                    'small' => __('Small Image with Padding', 'beauty-salon-services-manager'),
+                    'icon' => __('Icon/Small Icon', 'beauty-salon-services-manager'),
+                ),
+                'condition' => array(
+                    'show_image' => 'yes',
+                ),
+                'separator' => 'before',
+            )
+        );
+
+        $this->add_control(
+            'use_service_icon',
+            array(
+                'label' => __('Use Service Icon', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'label_on' => __('Yes', 'beauty-salon-services-manager'),
+                'label_off' => __('No', 'beauty-salon-services-manager'),
+                'return_value' => 'yes',
+                'default' => 'no',
+                'description' => __('Display the service icon instead of featured image (if icon is set)', 'beauty-salon-services-manager'),
+                'condition' => array(
+                    'show_image' => 'yes',
+                    'image_display_mode' => 'icon',
+                ),
+            )
+        );
+
+        $this->add_control(
+            'image_padding',
+            array(
+                'label' => __('Image/Icon Padding', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                'size_units' => array('px', 'em', '%'),
+                'selectors' => array(
+                    '{{WRAPPER}} .bslm-service-image.display-small img, {{WRAPPER}} .bslm-service-image.display-icon img' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ),
+                'condition' => array(
+                    'show_image' => 'yes',
+                    'image_display_mode!' => 'full',
+                ),
+            )
+        );
+
+        $this->add_control(
             'show_title',
             array(
                 'label' => __('Show Service Title', 'beauty-salon-services-manager'),
@@ -913,14 +964,44 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
             do_action('bslm_before_service_content', $post_id);
 
             // Image
-            if ($settings['show_image'] === 'yes' && has_post_thumbnail()) {
-                ?>
-                <div class="bslm-service-image">
-                    <a href="<?php the_permalink(); ?>">
-                        <?php the_post_thumbnail('large'); ?>
-                    </a>
-                </div>
-                <?php
+            if ($settings['show_image'] === 'yes') {
+                $image_classes = array('bslm-service-image');
+                $display_mode = isset($settings['image_display_mode']) ? $settings['image_display_mode'] : 'full';
+                $use_icon = isset($settings['use_service_icon']) && $settings['use_service_icon'] === 'yes';
+
+                // Add display mode class
+                $image_classes[] = 'display-' . $display_mode;
+
+                // Determine which image to display
+                $image_id = null;
+                $image_size = 'large';
+
+                if ($display_mode === 'icon' && $use_icon) {
+                    // Try to get service icon first
+                    $icon_id = get_post_meta($post_id, '_bslm_service_icon', true);
+                    if ($icon_id) {
+                        $image_id = $icon_id;
+                        $image_size = 'thumbnail';
+                    }
+                }
+
+                // Fallback to featured image
+                if (!$image_id && has_post_thumbnail()) {
+                    $image_id = get_post_thumbnail_id($post_id);
+                    if ($display_mode === 'small' || $display_mode === 'icon') {
+                        $image_size = 'medium';
+                    }
+                }
+
+                if ($image_id) {
+                    ?>
+                    <div class="<?php echo esc_attr(implode(' ', $image_classes)); ?>">
+                        <a href="<?php the_permalink(); ?>">
+                            <?php echo wp_get_attachment_image($image_id, $image_size); ?>
+                        </a>
+                    </div>
+                    <?php
+                }
             }
             ?>
 
