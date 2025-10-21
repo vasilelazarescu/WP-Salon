@@ -21,15 +21,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Comprehensive widget controls:
   - Service Selection (All, By Group, Manual)
   - Display Options (Image, Title, Description, Time, Price, Button)
-  - **Card Layout Options**: Vertical, Horizontal (Image Left), Horizontal (Image Right)
+  - **Card Layout Options**: Vertical, Horizontal (Image Left), Horizontal (Image Right), Two-Column Grid (Square Image Left)
+  - **Two-Column Grid**: 50/50 split with 1:1 aspect ratio square image
   - **Vertical Alignment Options**: Top, Middle, Bottom (for horizontal layouts)
   - **Image Display Modes**: Full Image, Small Image with Padding, Icon/Small Icon
   - **Service Icon Support**: Upload custom icons for services, display in icon mode
   - **Category Icon Support**: Upload icons for service groups/categories
+  - **Title Normal/Hover States**: Separate color controls for normal and hover states
   - Image/Icon padding controls
   - Layout Controls (Responsive Columns, Gaps)
   - Complete Styling Options for all elements
-  - Responsive design: Horizontal layouts automatically switch to vertical on tablets and mobile
+  - Responsive design: Horizontal and grid layouts automatically switch to vertical on tablets and mobile
 - Admin interface with custom columns (Thumbnail, Groups, Time, Price)
 - Frontend responsive grid layout
 - Mobile-first CSS with breakpoints for tablet and mobile

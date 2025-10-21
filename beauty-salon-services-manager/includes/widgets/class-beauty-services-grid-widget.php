@@ -200,6 +200,7 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
                     'vertical' => __('Vertical (Image Top)', 'beauty-salon-services-manager'),
                     'horizontal-left' => __('Horizontal (Image Left)', 'beauty-salon-services-manager'),
                     'horizontal-right' => __('Horizontal (Image Right)', 'beauty-salon-services-manager'),
+                    'two-column-grid' => __('Two-Column Grid (Square Image Left)', 'beauty-salon-services-manager'),
                 ),
                 'condition' => array(
                     'show_image' => 'yes',
@@ -587,6 +588,17 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
             )
         );
 
+        // Title Color - Normal/Hover Tabs
+        $this->start_controls_tabs('title_color_tabs');
+
+        // Normal Tab
+        $this->start_controls_tab(
+            'title_color_normal',
+            array(
+                'label' => __('Normal', 'beauty-salon-services-manager'),
+            )
+        );
+
         $this->add_control(
             'title_color',
             array(
@@ -595,9 +607,39 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
                 'default' => '#333333',
                 'selectors' => array(
                     '{{WRAPPER}} .bslm-service-title' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .bslm-service-title a' => 'color: {{VALUE}};',
                 ),
             )
         );
+
+        $this->end_controls_tab();
+
+        // Hover Tab
+        $this->start_controls_tab(
+            'title_color_hover',
+            array(
+                'label' => __('Hover', 'beauty-salon-services-manager'),
+            )
+        );
+
+        $this->add_control(
+            'title_color_hover',
+            array(
+                'label' => __('Color', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'default' => '#007cba',
+                'selectors' => array(
+                    '{{WRAPPER}} .bslm-service-title:hover' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .bslm-service-title a:hover' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .bslm-service-card:hover .bslm-service-title' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .bslm-service-card:hover .bslm-service-title a' => 'color: {{VALUE}};',
+                ),
+            )
+        );
+
+        $this->end_controls_tab();
+
+        $this->end_controls_tabs();
 
         $this->add_responsive_control(
             'title_align',

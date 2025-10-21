@@ -132,8 +132,9 @@ You can now edit individual service pages and archive pages using Elementor:
 - **Show Service Image**: Toggle service featured images
 - **Card Layout**: Choose card layout style
   - **Vertical (Image Top)**: Traditional card with image on top (default)
-  - **Horizontal (Image Left)**: Image on left side, content on right
-  - **Horizontal (Image Right)**: Image on right side, content on left
+  - **Horizontal (Image Left)**: Image on left side, content on right (40/60 split)
+  - **Horizontal (Image Right)**: Image on right side, content on left (40/60 split)
+  - **Two-Column Grid (Square Image Left)**: Square 1:1 image on left, text on right (50/50 split)
 - **Content Vertical Alignment**: Align content vertically in horizontal layouts
   - **Top**: Align content to top
   - **Middle**: Center content vertically
@@ -173,7 +174,9 @@ You can now edit individual service pages and archive pages using Elementor:
 
 #### Title
 - **Typography**: Font family, size, weight, etc.
-- **Color**: Text color
+- **Color**: Text color with Normal/Hover states
+  - **Normal**: Default title color
+  - **Hover**: Title color on hover (card hover or link hover)
 - **Alignment**: Left, Center, or Right
 - **Margin**: Spacing around titles
 
