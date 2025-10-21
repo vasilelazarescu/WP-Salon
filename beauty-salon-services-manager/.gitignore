@@ -1,0 +1,141 @@
+# WordPress
+.DS_Store
+.htaccess
+wp-config.php
+wp-content/uploads/
+wp-content/blogs.dir/
+wp-content/upgrade/
+wp-content/backup-db/
+wp-content/advanced-cache.php
+wp-content/wp-cache-config.php
+wp-content/cache/
+wp-content/cache/supercache/
+
+# IDE and Editor files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+.project
+.settings/
+.buildpath
+.externalToolBuilders/
+nbproject/
+
+# OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Node modules
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Build files
+dist/
+build/
+*.min.css
+*.min.js
+*.map
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+*.cache
+
+# Composer
+/vendor/
+composer.lock
+
+# Testing
+.phpunit.result.cache
+tests/_output/
+phpunit.xml
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Version control
+.git/
+.svn/
+.hg/
+
+# Compiled files
+*.css.map
+*.js.map
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Development
+/dev/
+/test/
+/docs/
+
+# Compression
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# Database
+*.sql
+*.sqlite
+
+# Logs
+logs/
+*.log
+
+# Coverage reports
+coverage/
+.nyc_output/
+
+# Dependency directories
+bower_components/
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# dotenv environment variables file
+.env.test
+
+# parcel-bundler cache
+.cache
+.parcel-cache
+
+# Next.js
+.next
+out
+
+# Nuxt.js
+.nuxt
+
+# Gatsby files
+.cache/
+public
+
+# WordPress specific
+wp-cli.local.yml
+
+# Plugin specific
+/releases/

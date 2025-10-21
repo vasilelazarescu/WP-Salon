@@ -1,0 +1,113 @@
+/**
+ * Admin Styles for Beauty Salon Services Manager
+ *
+ * @package Beauty_Salon_Services_Manager
+ */
+
+/* Meta Box Styling */
+.bslm-meta-box {
+    padding: 10px 0;
+}
+
+.bslm-meta-box p {
+    margin-bottom: 20px;
+}
+
+.bslm-meta-box label {
+    display: inline-block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #23282d;
+}
+
+.bslm-meta-box input[type="text"],
+.bslm-meta-box textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.bslm-meta-box input[type="text"]:focus,
+.bslm-meta-box textarea:focus {
+    border-color: #2271b1;
+    outline: none;
+    box-shadow: 0 0 0 1px #2271b1;
+}
+
+.bslm-meta-box .description {
+    display: block;
+    margin-top: 5px;
+    color: #646970;
+    font-size: 13px;
+    font-style: italic;
+}
+
+/* Admin Columns */
+.column-thumbnail img {
+    max-width: 50px;
+    height: auto;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+.column-service_groups,
+.column-time,
+.column-price {
+    font-size: 14px;
+}
+
+.column-service_groups {
+    max-width: 200px;
+}
+
+/* Service Groups Taxonomy */
+.taxonomy-bslm_service_group .term-description {
+    margin-top: 10px;
+    padding: 10px;
+    background: #f6f7f7;
+    border-left: 3px solid #2271b1;
+}
+
+/* Admin Menu Icon */
+#adminmenu .menu-icon-bslm_service img {
+    max-width: 20px;
+    height: auto;
+}
+
+/* Quick Edit Support */
+.inline-edit-col-left .inline-edit-group label.alignleft {
+    margin-right: 10px;
+}
+
+/* Help Text */
+.bslm-help-text {
+    padding: 15px;
+    background: #fff8e5;
+    border-left: 4px solid #ffb900;
+    margin: 20px 0;
+}
+
+.bslm-help-text h4 {
+    margin-top: 0;
+    color: #856404;
+}
+
+.bslm-help-text p {
+    margin-bottom: 0;
+    color: #856404;
+}
+
+/* Responsive Admin Styles */
+@media screen and (max-width: 782px) {
+    .bslm-meta-box input[type="text"],
+    .bslm-meta-box textarea {
+        font-size: 16px;
+    }
+
+    .column-thumbnail {
+        display: none;
+    }
+}
