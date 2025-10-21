@@ -12,7 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Custom post type `bslm_service` for managing beauty services
 - Custom taxonomy `bslm_service_group` for categorizing services
 - Service detail meta boxes (Time Duration, Price, Additional Notes)
-- Full Elementor integration with custom widget "Beauty Services Grid"
+- **Full Elementor Integration**:
+  - Custom widget "Beauty Services Grid"
+  - Elementor page builder support for single service pages
+  - Elementor Theme Builder support for archive pages
+  - Elementor Theme Builder support for taxonomy/category pages
+- **SEO-Friendly URL Structure**: Services use `/services/service-name` permalink structure
 - Comprehensive widget controls:
   - Service Selection (All, By Group, Manual)
   - Display Options (Image, Title, Description, Time, Price, Button)
@@ -68,6 +73,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Editor support (WYSIWYG)
 - Featured image support
 - Custom fields support
+- **Elementor support**: Edit single service pages with Elementor
+- **Custom permalink structure**: `/services/service-name`
+- Archive page: `/services/`
 - Hierarchical: No
 - Public: Yes
 - Show in REST: Yes
@@ -78,6 +86,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Public: Yes
 - Show in admin column: Yes
 - Show in REST: Yes
+- **Elementor archive support**: Edit category/taxonomy pages with Elementor Theme Builder
 - Custom slug: 'service-group'
 
 #### Elementor Widget Controls

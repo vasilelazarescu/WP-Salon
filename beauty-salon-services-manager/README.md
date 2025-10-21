@@ -10,7 +10,12 @@ The Beauty Salon Services Manager plugin provides a complete solution for beauty
 
 - **Custom Post Type**: Dedicated service post type with custom fields for time, price, and additional notes
 - **Service Groups**: Organize services into hierarchical categories (e.g., Facial Treatments, Laser Epilation, Massage)
-- **Elementor Widget**: Beautiful, customizable services grid widget with extensive styling options
+- **Full Elementor Integration**:
+  - Edit individual service pages with Elementor page builder
+  - Edit archive pages (service listings) with Elementor
+  - Edit category/taxonomy pages with Elementor
+  - Beautiful, customizable services grid widget with extensive styling options
+- **SEO-Friendly URLs**: Clean permalink structure - `/services/service-name` for services
 - **Responsive Design**: Mobile-first approach ensures your services look great on all devices
 - **Flexible Display Options**: Choose what to show/hide - images, titles, descriptions, time, price, buttons
 - **Advanced Styling**: Complete control over layout, colors, typography, spacing, and more
@@ -79,6 +84,35 @@ The Beauty Salon Services Manager plugin provides a complete solution for beauty
    - **Display Options**: Toggle what information to show
    - **Style Tab**: Customize the appearance
 5. Click **Update** to save your page
+
+### Step 4: Customize Service Pages with Elementor (Optional)
+
+You can now edit individual service pages and archive pages using Elementor:
+
+#### Edit Single Service Pages
+1. Go to **Beauty Services > All Services**
+2. Click on any service to edit
+3. Click **Edit with Elementor** button at the top
+4. Design your custom service page layout
+5. Use Elementor widgets to display service information
+6. Click **Update** when done
+
+#### Edit Service Archive Pages
+1. Go to **Templates > Theme Builder** (Elementor Pro required)
+2. Click **Add New** > **Archive**
+3. Choose **Service Archive** as the condition
+4. Design your custom archive layout
+5. Use the **Archive Posts** widget or **Beauty Services Grid** widget
+6. Set display conditions for all service archives
+
+#### Edit Service Category Pages
+1. Go to **Templates > Theme Builder**
+2. Click **Add New** > **Archive**
+3. Choose **Service Group Archive** (taxonomy) as the condition
+4. Design your custom category layout
+5. Set display conditions for specific service groups or all groups
+
+**Note**: The URL structure for services is `/services/service-name` for clean, SEO-friendly permalinks.
 
 ## Elementor Widget Settings
 

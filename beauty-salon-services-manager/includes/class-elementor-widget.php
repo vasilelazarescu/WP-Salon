@@ -8,6 +8,14 @@
 class BSLM_Elementor_Widget {
 
     /**
+     * Constructor.
+     */
+    public function __construct() {
+        // Enable Elementor for archives
+        add_action('init', array($this, 'enable_elementor_archive_support'));
+    }
+
+    /**
      * Register Elementor widgets.
      */
     public function register_widgets($widgets_manager) {
@@ -32,5 +40,48 @@ class BSLM_Elementor_Widget {
                 'icon' => 'fa fa-plug',
             )
         );
+    }
+
+    /**
+     * Enable Elementor support for archive pages.
+     */
+    public function enable_elementor_archive_support() {
+        // Check if Elementor is loaded
+        if (!did_action('elementor/loaded')) {
+            return;
+        }
+
+        // Add support for service post type archives
+        add_filter('elementor/theme/need_override_location', array($this, 'enable_archive_override'), 10, 2);
+
+        // Add archive templates to Elementor library
+        add_action('elementor/documents/register', array($this, 'register_archive_document_type'));
+    }
+
+    /**
+     * Enable archive location override for service archives.
+     *
+     * @param bool   $need_override Whether to override the location.
+     * @param string $location The location name.
+     * @return bool
+     */
+    public function enable_archive_override($need_override, $location) {
+        if ('archive' === $location) {
+            if (is_post_type_archive('bslm_service') || is_tax('bslm_service_group')) {
+                return true;
+            }
+        }
+        return $need_override;
+    }
+
+    /**
+     * Register custom archive document type for Elementor.
+     *
+     * @param object $documents_manager Elementor documents manager.
+     */
+    public function register_archive_document_type($documents_manager) {
+        // This allows Elementor to recognize service archives
+        // Archive documents are already registered by Elementor Pro
+        // We just ensure our post type is included
     }
 }

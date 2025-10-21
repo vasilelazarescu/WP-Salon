@@ -45,7 +45,7 @@ class BSLM_Post_Types {
             'label'                 => __('Service', 'beauty-salon-services-manager'),
             'description'           => __('Beauty and laser epilation services', 'beauty-salon-services-manager'),
             'labels'                => $labels,
-            'supports'              => array('title', 'editor', 'thumbnail', 'custom-fields'),
+            'supports'              => array('title', 'editor', 'thumbnail', 'custom-fields', 'elementor'),
             'taxonomies'            => array('bslm_service_group'),
             'hierarchical'          => false,
             'public'                => true,
@@ -56,15 +56,55 @@ class BSLM_Post_Types {
             'show_in_admin_bar'     => true,
             'show_in_nav_menus'     => true,
             'can_export'            => true,
-            'has_archive'           => true,
+            'has_archive'           => 'services',
             'exclude_from_search'   => false,
             'publicly_queryable'    => true,
             'capability_type'       => 'post',
             'show_in_rest'          => true,
             'rest_base'             => 'services',
             'rest_controller_class' => 'WP_REST_Posts_Controller',
+            'rewrite'               => array(
+                'slug'       => 'services',
+                'with_front' => false,
+            ),
         );
 
         register_post_type('bslm_service', $args);
+
+        // Enable Elementor support for this post type
+        $this->enable_elementor_support();
+    }
+
+    /**
+     * Enable Elementor support for the service post type.
+     */
+    public function enable_elementor_support() {
+        // Add post type to Elementor supported post types
+        add_filter('elementor/utils/get_public_post_types', array($this, 'add_elementor_cpt_support'));
+
+        // Enable Elementor for archives
+        add_action('elementor/theme/register_locations', array($this, 'register_elementor_locations'));
+    }
+
+    /**
+     * Add service post type to Elementor CPT support.
+     *
+     * @param array $post_types Supported post types.
+     * @return array
+     */
+    public function add_elementor_cpt_support($post_types) {
+        $post_types['bslm_service'] = 'bslm_service';
+        return $post_types;
+    }
+
+    /**
+     * Register Elementor locations for archives.
+     *
+     * @param object $elementor_theme_manager Elementor theme manager.
+     */
+    public function register_elementor_locations($elementor_theme_manager) {
+        // Archive location is already registered by Elementor
+        // We just need to ensure our post type archives are supported
+        // This is handled by Elementor Pro automatically when has_archive is true
     }
 }
