@@ -128,6 +128,14 @@ You can now edit individual service pages and archive pages using Elementor:
 
 #### Display Options
 - **Show Service Image**: Toggle service featured images
+- **Card Layout**: Choose card layout style
+  - **Vertical (Image Top)**: Traditional card with image on top (default)
+  - **Horizontal (Image Left)**: Image on left side, content on right
+  - **Horizontal (Image Right)**: Image on right side, content on left
+- **Content Vertical Alignment**: Align content vertically in horizontal layouts
+  - **Top**: Align content to top
+  - **Middle**: Center content vertically
+  - **Bottom**: Align content to bottom
 - **Show Service Title**: Toggle service titles
 - **Show Service Description**: Toggle service descriptions
 - **Description Length**: Number of words to show in excerpt

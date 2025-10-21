@@ -31,6 +31,57 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
+/* Horizontal Layout - Image Left */
+.bslm-service-card.layout-horizontal-left {
+    flex-direction: row;
+}
+
+.bslm-service-card.layout-horizontal-left .bslm-service-image {
+    width: 40%;
+    flex-shrink: 0;
+}
+
+.bslm-service-card.layout-horizontal-left .bslm-service-image img {
+    height: 100%;
+    min-height: 250px;
+}
+
+.bslm-service-card.layout-horizontal-left .bslm-service-content {
+    width: 60%;
+}
+
+/* Horizontal Layout - Image Right */
+.bslm-service-card.layout-horizontal-right {
+    flex-direction: row-reverse;
+}
+
+.bslm-service-card.layout-horizontal-right .bslm-service-image {
+    width: 40%;
+    flex-shrink: 0;
+}
+
+.bslm-service-card.layout-horizontal-right .bslm-service-image img {
+    height: 100%;
+    min-height: 250px;
+}
+
+.bslm-service-card.layout-horizontal-right .bslm-service-content {
+    width: 60%;
+}
+
+/* Vertical Alignment for Horizontal Layouts */
+.bslm-service-card.align-top .bslm-service-content {
+    justify-content: flex-start;
+}
+
+.bslm-service-card.align-middle .bslm-service-content {
+    justify-content: center;
+}
+
+.bslm-service-card.align-bottom .bslm-service-content {
+    justify-content: flex-end;
+}
+
 /* Service Image */
 .bslm-service-image {
     position: relative;
@@ -163,6 +214,29 @@
 
     .bslm-service-card {
         border-radius: 6px;
+    }
+
+    /* Switch horizontal layouts to vertical on tablet */
+    .bslm-service-card.layout-horizontal-left,
+    .bslm-service-card.layout-horizontal-right {
+        flex-direction: column;
+    }
+
+    .bslm-service-card.layout-horizontal-left .bslm-service-image,
+    .bslm-service-card.layout-horizontal-right .bslm-service-image {
+        width: 100%;
+    }
+
+    .bslm-service-card.layout-horizontal-left .bslm-service-image img,
+    .bslm-service-card.layout-horizontal-right .bslm-service-image img {
+        height: 200px;
+        min-height: auto;
+    }
+
+    .bslm-service-card.layout-horizontal-left .bslm-service-content,
+    .bslm-service-card.layout-horizontal-right .bslm-service-content {
+        width: 100%;
+        justify-content: flex-start;
     }
 
     .bslm-service-content {

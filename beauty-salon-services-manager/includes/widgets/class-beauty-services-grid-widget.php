@@ -191,6 +191,41 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
         );
 
         $this->add_control(
+            'card_layout',
+            array(
+                'label' => __('Card Layout', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'default' => 'vertical',
+                'options' => array(
+                    'vertical' => __('Vertical (Image Top)', 'beauty-salon-services-manager'),
+                    'horizontal-left' => __('Horizontal (Image Left)', 'beauty-salon-services-manager'),
+                    'horizontal-right' => __('Horizontal (Image Right)', 'beauty-salon-services-manager'),
+                ),
+                'condition' => array(
+                    'show_image' => 'yes',
+                ),
+            )
+        );
+
+        $this->add_control(
+            'vertical_alignment',
+            array(
+                'label' => __('Content Vertical Alignment', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'default' => 'top',
+                'options' => array(
+                    'top' => __('Top', 'beauty-salon-services-manager'),
+                    'middle' => __('Middle', 'beauty-salon-services-manager'),
+                    'bottom' => __('Bottom', 'beauty-salon-services-manager'),
+                ),
+                'condition' => array(
+                    'show_image' => 'yes',
+                    'card_layout!' => 'vertical',
+                ),
+            )
+        );
+
+        $this->add_control(
             'show_title',
             array(
                 'label' => __('Show Service Title', 'beauty-salon-services-manager'),
@@ -858,6 +893,17 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
         $price = get_post_meta($post_id, '_bslm_service_price', true);
 
         $card_classes = array('bslm-service-card');
+
+        // Add layout class
+        if (isset($settings['card_layout'])) {
+            $card_classes[] = 'layout-' . $settings['card_layout'];
+        }
+
+        // Add vertical alignment class for horizontal layouts
+        if (isset($settings['vertical_alignment']) && isset($settings['card_layout']) && $settings['card_layout'] !== 'vertical') {
+            $card_classes[] = 'align-' . $settings['vertical_alignment'];
+        }
+
         $card_classes = apply_filters('bslm_service_card_classes', $card_classes, $post_id);
 
         ?>

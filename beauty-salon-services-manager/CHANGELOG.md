@@ -21,8 +21,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Comprehensive widget controls:
   - Service Selection (All, By Group, Manual)
   - Display Options (Image, Title, Description, Time, Price, Button)
+  - **Card Layout Options**: Vertical, Horizontal (Image Left), Horizontal (Image Right)
+  - **Vertical Alignment Options**: Top, Middle, Bottom (for horizontal layouts)
   - Layout Controls (Responsive Columns, Gaps)
   - Complete Styling Options for all elements
+  - Responsive design: Horizontal layouts automatically switch to vertical on tablets and mobile
 - Admin interface with custom columns (Thumbnail, Groups, Time, Price)
 - Frontend responsive grid layout
 - Mobile-first CSS with breakpoints for tablet and mobile
