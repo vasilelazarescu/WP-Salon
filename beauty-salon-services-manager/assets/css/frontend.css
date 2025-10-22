@@ -89,6 +89,7 @@
     flex-shrink: 0;
     position: relative;
     overflow: hidden;
+    background: none;
 }
 
 .bslm-service-card.layout-two-column-grid .bslm-service-image::before {
@@ -114,11 +115,6 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.2s ease;
-}
-
-.bslm-service-card.layout-two-column-grid:hover .bslm-service-image img {
-    transform: scale(1.05);
 }
 
 .bslm-service-card.layout-two-column-grid .bslm-service-content {
@@ -133,6 +129,12 @@
     font-size: 16px;
     font-weight: 600;
     line-height: 1.4;
+}
+
+/* Remove background for button layout image modes */
+.bslm-service-card.layout-two-column-grid .bslm-service-image.display-small,
+.bslm-service-card.layout-two-column-grid .bslm-service-image.display-icon {
+    background: none;
 }
 
 /* Vertical Alignment for Horizontal Layouts */
@@ -346,13 +348,13 @@
     /* Switch horizontal layouts to vertical on tablet */
     .bslm-service-card.layout-horizontal-left,
     .bslm-service-card.layout-horizontal-right,
-    .bslm-service-card.layout-two-column-grid {
+    .bslm-service-card.layout-two-column-grid:not(.button-mobile) {
         flex-direction: column;
     }
 
     .bslm-service-card.layout-horizontal-left .bslm-service-image,
     .bslm-service-card.layout-horizontal-right .bslm-service-image,
-    .bslm-service-card.layout-two-column-grid .bslm-service-image {
+    .bslm-service-card.layout-two-column-grid:not(.button-mobile) .bslm-service-image {
         width: 100%;
     }
 
@@ -362,25 +364,38 @@
         min-height: auto;
     }
 
-    /* Reset two-column grid image positioning on tablet */
-    .bslm-service-card.layout-two-column-grid .bslm-service-image::before {
+    /* Reset two-column grid image positioning on tablet (only if not keeping button style) */
+    .bslm-service-card.layout-two-column-grid:not(.button-mobile) .bslm-service-image::before {
         padding-top: 0;
     }
 
-    .bslm-service-card.layout-two-column-grid .bslm-service-image a {
+    .bslm-service-card.layout-two-column-grid:not(.button-mobile) .bslm-service-image a {
         position: relative;
     }
 
-    .bslm-service-card.layout-two-column-grid .bslm-service-image img {
+    .bslm-service-card.layout-two-column-grid:not(.button-mobile) .bslm-service-image img {
         position: relative;
         height: 200px;
     }
 
     .bslm-service-card.layout-horizontal-left .bslm-service-content,
     .bslm-service-card.layout-horizontal-right .bslm-service-content,
-    .bslm-service-card.layout-two-column-grid .bslm-service-content {
+    .bslm-service-card.layout-two-column-grid:not(.button-mobile) .bslm-service-content {
         width: 100%;
         justify-content: flex-start;
+    }
+
+    /* Keep button style on mobile if enabled */
+    .bslm-service-card.layout-two-column-grid.button-mobile {
+        min-height: 56px;
+    }
+
+    .bslm-service-card.layout-two-column-grid.button-mobile .bslm-service-content {
+        padding: 12px 15px;
+    }
+
+    .bslm-service-card.layout-two-column-grid.button-mobile .bslm-service-title {
+        font-size: 14px;
     }
 
     .bslm-service-content {

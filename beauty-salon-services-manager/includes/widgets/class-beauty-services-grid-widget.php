@@ -277,6 +277,56 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
             )
         );
 
+        $this->add_responsive_control(
+            'button_image_width',
+            array(
+                'label' => __('Image Column Width', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'size_units' => array('%', 'px'),
+                'range' => array(
+                    '%' => array(
+                        'min' => 10,
+                        'max' => 50,
+                        'step' => 1,
+                    ),
+                    'px' => array(
+                        'min' => 50,
+                        'max' => 300,
+                        'step' => 1,
+                    ),
+                ),
+                'default' => array(
+                    'unit' => '%',
+                    'size' => 25,
+                ),
+                'selectors' => array(
+                    '{{WRAPPER}} .bslm-service-card.layout-two-column-grid .bslm-service-image' => 'width: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .bslm-service-card.layout-two-column-grid .bslm-service-content' => 'width: calc(100% - {{SIZE}}{{UNIT}});',
+                ),
+                'condition' => array(
+                    'show_image' => 'yes',
+                    'card_layout' => 'two-column-grid',
+                ),
+            )
+        );
+
+        $this->add_control(
+            'button_keep_mobile',
+            array(
+                'label' => __('Keep Button Style on Mobile', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'label_on' => __('Yes', 'beauty-salon-services-manager'),
+                'label_off' => __('No', 'beauty-salon-services-manager'),
+                'return_value' => 'yes',
+                'default' => 'no',
+                'description' => __('By default, button style switches to vertical layout on mobile. Enable this to keep the button style on mobile devices.', 'beauty-salon-services-manager'),
+                'condition' => array(
+                    'show_image' => 'yes',
+                    'card_layout' => 'two-column-grid',
+                ),
+            )
+        );
+
         $this->add_control(
             'show_title',
             array(
@@ -995,6 +1045,11 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
         // Add vertical alignment class for horizontal layouts
         if (isset($settings['vertical_alignment']) && isset($settings['card_layout']) && $settings['card_layout'] !== 'vertical') {
             $card_classes[] = 'align-' . $settings['vertical_alignment'];
+        }
+
+        // Add mobile class for button layout if enabled
+        if (isset($settings['button_keep_mobile']) && $settings['button_keep_mobile'] === 'yes' && isset($settings['card_layout']) && $settings['card_layout'] === 'two-column-grid') {
+            $card_classes[] = 'button-mobile';
         }
 
         $card_classes = apply_filters('bslm_service_card_classes', $card_classes, $post_id);
