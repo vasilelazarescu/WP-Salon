@@ -72,10 +72,11 @@
 /* Two-Column Grid Layout - Square Image Left */
 .bslm-service-card.layout-two-column-grid {
     flex-direction: row;
+    min-height: 64px;
 }
 
 .bslm-service-card.layout-two-column-grid .bslm-service-image {
-    width: 50%;
+    width: 25%;
     flex-shrink: 0;
     position: relative;
     overflow: hidden;
@@ -107,7 +108,7 @@
 }
 
 .bslm-service-card.layout-two-column-grid .bslm-service-content {
-    width: 50%;
+    width: 75%;
 }
 
 /* Vertical Alignment for Horizontal Layouts */
