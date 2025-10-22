@@ -200,7 +200,7 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
                     'vertical' => __('Vertical (Image Top)', 'beauty-salon-services-manager'),
                     'horizontal-left' => __('Horizontal (Image Left)', 'beauty-salon-services-manager'),
                     'horizontal-right' => __('Horizontal (Image Right)', 'beauty-salon-services-manager'),
-                    'two-column-grid' => __('Two-Column Grid (Square Image Left)', 'beauty-salon-services-manager'),
+                    'two-column-grid' => __('Button Style (Icon/Image + Title)', 'beauty-salon-services-manager'),
                 ),
                 'condition' => array(
                     'show_image' => 'yes',
@@ -999,6 +999,9 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
 
         $card_classes = apply_filters('bslm_service_card_classes', $card_classes, $post_id);
 
+        // Check if this is a two-column-grid layout (button-like display)
+        $is_button_layout = isset($settings['card_layout']) && $settings['card_layout'] === 'two-column-grid';
+
         ?>
         <div class="<?php echo esc_attr(implode(' ', $card_classes)); ?>">
             <?php
@@ -1058,8 +1061,8 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
                     <?php
                 }
 
-                // Description
-                if ($settings['show_description'] === 'yes') {
+                // Description (hidden for button layout)
+                if ($settings['show_description'] === 'yes' && !$is_button_layout) {
                     $excerpt_length = $settings['description_length'];
                     $excerpt = wp_trim_words(get_the_excerpt(), $excerpt_length, '...');
                     ?>
@@ -1069,8 +1072,8 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
                     <?php
                 }
 
-                // Meta (Time/Price)
-                if (($settings['show_time'] === 'yes' && $time) || ($settings['show_price'] === 'yes' && $price)) {
+                // Meta (Time/Price) - hidden for button layout
+                if (!$is_button_layout && (($settings['show_time'] === 'yes' && $time) || ($settings['show_price'] === 'yes' && $price))) {
                     ?>
                     <div class="bslm-service-meta">
                         <?php
@@ -1103,8 +1106,8 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
                     <?php
                 }
 
-                // Button
-                if ($settings['show_button'] === 'yes') {
+                // Button (hidden for button layout)
+                if ($settings['show_button'] === 'yes' && !$is_button_layout) {
                     ?>
                     <a href="<?php the_permalink(); ?>" class="bslm-service-button">
                         <?php echo esc_html($settings['button_text']); ?>
