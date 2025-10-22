@@ -27,8 +27,8 @@
 }
 
 .bslm-service-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 /* Horizontal Layout - Image Left */
@@ -80,8 +80,8 @@
 }
 
 .bslm-service-card.layout-two-column-grid:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .bslm-service-card.layout-two-column-grid .bslm-service-image {
@@ -168,11 +168,12 @@
     width: 100%;
     height: 250px;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: none;
 }
 
+/* Remove image zoom effect on hover */
 .bslm-service-card:hover .bslm-service-image img {
-    transform: scale(1.05);
+    transform: none;
 }
 
 /* Image Display Modes */
