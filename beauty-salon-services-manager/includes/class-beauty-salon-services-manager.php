@@ -54,6 +54,9 @@ class Beauty_Salon_Services_Manager {
         require_once BSLM_PLUGIN_DIR . 'includes/class-meta-boxes.php';
         require_once BSLM_PLUGIN_DIR . 'includes/class-taxonomy-meta.php';
         require_once BSLM_PLUGIN_DIR . 'includes/class-elementor-widget.php';
+        require_once BSLM_PLUGIN_DIR . 'includes/class-settings.php';
+        require_once BSLM_PLUGIN_DIR . 'includes/class-shortcodes.php';
+        require_once BSLM_PLUGIN_DIR . 'includes/class-template-loader.php';
 
         $this->loader = new BSLM_Loader();
     }
@@ -79,6 +82,9 @@ class Beauty_Salon_Services_Manager {
         // Register taxonomy meta (category icons)
         $taxonomy_meta = new BSLM_Taxonomy_Meta();
 
+        // Initialize settings page
+        $settings = new BSLM_Settings();
+
         // Enqueue admin styles and scripts
         $this->loader->add_action('admin_enqueue_scripts', $this, 'enqueue_admin_styles');
         $this->loader->add_action('admin_enqueue_scripts', $this, 'enqueue_admin_scripts');
@@ -101,6 +107,12 @@ class Beauty_Salon_Services_Manager {
         $elementor_widget = new BSLM_Elementor_Widget();
         $this->loader->add_action('elementor/widgets/register', $elementor_widget, 'register_widgets');
         $this->loader->add_action('elementor/elements/categories_registered', $elementor_widget, 'add_elementor_widget_categories');
+
+        // Initialize shortcodes
+        $shortcodes = new BSLM_Shortcodes();
+
+        // Initialize template loader
+        $template_loader = new BSLM_Template_Loader();
     }
 
     /**
