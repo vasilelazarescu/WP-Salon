@@ -71,7 +71,7 @@ class BSLM_Post_Types {
             'rest_base'             => 'services',
             'rest_controller_class' => 'WP_REST_Posts_Controller',
             'rewrite'               => array(
-                'slug'       => 'services/%bslm_service_group%',
+                'slug'       => '%bslm_service_group%',
                 'with_front' => false,
             ),
         );
