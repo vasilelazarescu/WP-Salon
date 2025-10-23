@@ -52,7 +52,11 @@ class BSLM_Taxonomies {
             'show_in_rest'               => true,
             'rest_base'                  => 'service-groups',
             'rest_controller_class'      => 'WP_REST_Terms_Controller',
-            'rewrite'                    => array('slug' => 'service-group'),
+            'rewrite'                    => array(
+                'slug'         => 'services',
+                'with_front'   => false,
+                'hierarchical' => true,
+            ),
         );
 
         register_taxonomy('bslm_service_group', array('bslm_service'), $args);
