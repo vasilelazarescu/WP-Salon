@@ -53,22 +53,38 @@
     vertical-align: middle;
 }
 
-.column-service_groups,
+.column-parent_service,
 .column-time,
 .column-price {
     font-size: 14px;
 }
 
-.column-service_groups {
+.column-parent_service {
     max-width: 200px;
 }
 
-/* Service Groups Taxonomy */
-.taxonomy-bslm_service_group .term-description {
-    margin-top: 10px;
-    padding: 10px;
-    background: #f6f7f7;
-    border-left: 3px solid #2271b1;
+.column-parent_service a {
+    text-decoration: none;
+}
+
+.column-parent_service a:hover {
+    color: #0073aa;
+    text-decoration: underline;
+}
+
+/* Hierarchical List Display */
+.wp-list-table.posts #the-list tr.level-1 .row-title {
+    padding-left: 20px;
+}
+
+.wp-list-table.posts #the-list tr.level-1 .row-title:before {
+    content: "— ";
+    color: #999;
+}
+
+/* Visual indicator for parent services */
+.wp-list-table.posts #the-list tr.level-0 .row-title {
+    font-weight: 600;
 }
 
 /* Admin Menu Icon */
