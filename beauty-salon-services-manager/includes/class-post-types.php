@@ -8,13 +8,6 @@
 class BSLM_Post_Types {
 
     /**
-     * Constructor.
-     */
-    public function __construct() {
-        add_filter('post_type_link', array($this, 'service_permalink'), 10, 2);
-    }
-
-    /**
      * Register custom post types.
      */
     public function register_post_types() {
@@ -71,7 +64,7 @@ class BSLM_Post_Types {
             'rest_base'             => 'services',
             'rest_controller_class' => 'WP_REST_Posts_Controller',
             'rewrite'               => array(
-                'slug'       => '%bslm_service_group%',
+                'slug'       => 'service',
                 'with_front' => false,
             ),
         );
@@ -113,38 +106,5 @@ class BSLM_Post_Types {
         // Archive location is already registered by Elementor
         // We just need to ensure our post type archives are supported
         // This is handled by Elementor Pro automatically when has_archive is true
-    }
-
-    /**
-     * Customize service permalink to include taxonomy term.
-     *
-     * @param string  $post_link The post's permalink.
-     * @param WP_Post $post      The post object.
-     * @return string
-     */
-    public function service_permalink($post_link, $post) {
-        // Only apply to our service post type
-        if ($post->post_type !== 'bslm_service') {
-            return $post_link;
-        }
-
-        // Check if the permalink contains our placeholder
-        if (strpos($post_link, '%bslm_service_group%') === false) {
-            return $post_link;
-        }
-
-        // Get the terms for this post
-        $terms = get_the_terms($post->ID, 'bslm_service_group');
-
-        if (!empty($terms) && !is_wp_error($terms)) {
-            // Use the first term (or primary term if using Yoast SEO)
-            $term = array_shift($terms);
-            $post_link = str_replace('%bslm_service_group%', $term->slug, $post_link);
-        } else {
-            // No term assigned, use 'uncategorized'
-            $post_link = str_replace('%bslm_service_group%', 'uncategorized', $post_link);
-        }
-
-        return $post_link;
     }
 }

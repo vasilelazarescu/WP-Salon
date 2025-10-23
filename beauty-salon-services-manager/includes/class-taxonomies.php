@@ -53,7 +53,7 @@ class BSLM_Taxonomies {
             'rest_base'                  => 'service-groups',
             'rest_controller_class'      => 'WP_REST_Terms_Controller',
             'rewrite'                    => array(
-                'slug'         => '',
+                'slug'         => 'service-category',
                 'with_front'   => false,
                 'hierarchical' => true,
             ),
