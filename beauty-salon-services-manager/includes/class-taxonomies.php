@@ -8,6 +8,13 @@
 class BSLM_Taxonomies {
 
     /**
+     * Constructor.
+     */
+    public function __construct() {
+        add_action('init', array($this, 'enable_elementor_taxonomy_support'), 20);
+    }
+
+    /**
      * Register custom taxonomies.
      */
     public function register_taxonomies() {
@@ -49,5 +56,31 @@ class BSLM_Taxonomies {
         );
 
         register_taxonomy('bslm_service_group', array('bslm_service'), $args);
+    }
+
+    /**
+     * Enable Elementor support for taxonomy.
+     */
+    public function enable_elementor_taxonomy_support() {
+        // Check if Elementor is loaded
+        if (!did_action('elementor/loaded')) {
+            return;
+        }
+
+        // Add Elementor CPT support filter for taxonomy
+        add_filter('elementor/utils/get_the_archive_titles', array($this, 'add_archive_title'), 10, 1);
+    }
+
+    /**
+     * Add custom archive titles for Elementor.
+     *
+     * @param array $titles Archive titles.
+     * @return array
+     */
+    public function add_archive_title($titles) {
+        if (is_tax('bslm_service_group')) {
+            $titles[] = single_term_title('', false);
+        }
+        return $titles;
     }
 }

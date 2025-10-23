@@ -56,6 +56,9 @@ class BSLM_Elementor_Widget {
 
         // Add archive templates to Elementor library
         add_action('elementor/documents/register', array($this, 'register_archive_document_type'));
+
+        // Add taxonomy to Elementor Pro location conditions
+        add_filter('elementor/theme/conditions/taxonomies', array($this, 'add_taxonomy_to_conditions'));
     }
 
     /**
@@ -82,6 +85,39 @@ class BSLM_Elementor_Widget {
     public function register_archive_document_type($documents_manager) {
         // This allows Elementor to recognize service archives
         // Archive documents are already registered by Elementor Pro
-        // We just ensure our post type is included
+        // We just ensure our post type and taxonomy are included
+
+        // Add support for service group taxonomy archives
+        add_filter('elementor/theme/posts_archive/query_posts/query_vars', array($this, 'add_taxonomy_to_query'));
+    }
+
+    /**
+     * Add taxonomy to Elementor archive query.
+     *
+     * @param array $query_vars Query variables.
+     * @return array
+     */
+    public function add_taxonomy_to_query($query_vars) {
+        if (is_tax('bslm_service_group')) {
+            $query_vars['tax_query'] = array(
+                array(
+                    'taxonomy' => 'bslm_service_group',
+                    'field' => 'slug',
+                    'terms' => get_queried_object()->slug,
+                ),
+            );
+        }
+        return $query_vars;
+    }
+
+    /**
+     * Add service group taxonomy to Elementor Pro location conditions.
+     *
+     * @param array $taxonomies List of taxonomies.
+     * @return array
+     */
+    public function add_taxonomy_to_conditions($taxonomies) {
+        $taxonomies['bslm_service_group'] = 'bslm_service_group';
+        return $taxonomies;
     }
 }
