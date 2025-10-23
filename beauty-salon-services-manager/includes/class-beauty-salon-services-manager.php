@@ -50,13 +50,9 @@ class Beauty_Salon_Services_Manager {
     private function load_dependencies() {
         require_once BSLM_PLUGIN_DIR . 'includes/class-loader.php';
         require_once BSLM_PLUGIN_DIR . 'includes/class-post-types.php';
-        require_once BSLM_PLUGIN_DIR . 'includes/class-taxonomies.php';
         require_once BSLM_PLUGIN_DIR . 'includes/class-meta-boxes.php';
-        require_once BSLM_PLUGIN_DIR . 'includes/class-taxonomy-meta.php';
         require_once BSLM_PLUGIN_DIR . 'includes/class-elementor-widget.php';
-        require_once BSLM_PLUGIN_DIR . 'includes/class-settings.php';
         require_once BSLM_PLUGIN_DIR . 'includes/class-shortcodes.php';
-        require_once BSLM_PLUGIN_DIR . 'includes/class-template-loader.php';
 
         $this->loader = new BSLM_Loader();
     }
@@ -70,20 +66,10 @@ class Beauty_Salon_Services_Manager {
         $post_types = new BSLM_Post_Types();
         $this->loader->add_action('init', $post_types, 'register_post_types');
 
-        // Register taxonomies
-        $taxonomies = new BSLM_Taxonomies();
-        $this->loader->add_action('init', $taxonomies, 'register_taxonomies');
-
         // Register meta boxes
         $meta_boxes = new BSLM_Meta_Boxes();
         $this->loader->add_action('add_meta_boxes', $meta_boxes, 'add_meta_boxes');
         $this->loader->add_action('save_post', $meta_boxes, 'save_meta_boxes');
-
-        // Register taxonomy meta (category icons)
-        $taxonomy_meta = new BSLM_Taxonomy_Meta();
-
-        // Initialize settings page
-        $settings = new BSLM_Settings();
 
         // Enqueue admin styles and scripts
         $this->loader->add_action('admin_enqueue_scripts', $this, 'enqueue_admin_styles');
@@ -107,12 +93,6 @@ class Beauty_Salon_Services_Manager {
         $elementor_widget = new BSLM_Elementor_Widget();
         $this->loader->add_action('elementor/widgets/register', $elementor_widget, 'register_widgets');
         $this->loader->add_action('elementor/elements/categories_registered', $elementor_widget, 'add_elementor_widget_categories');
-
-        // Initialize shortcodes
-        $shortcodes = new BSLM_Shortcodes();
-
-        // Initialize template loader
-        $template_loader = new BSLM_Template_Loader();
     }
 
     /**

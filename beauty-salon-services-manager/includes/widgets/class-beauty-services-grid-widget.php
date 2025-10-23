@@ -67,34 +67,40 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
                 'default' => 'all',
                 'options' => array(
                     'all' => __('All Services', 'beauty-salon-services-manager'),
-                    'by_group' => __('By Service Group', 'beauty-salon-services-manager'),
+                    'by_parent' => __('By Parent Service', 'beauty-salon-services-manager'),
+                    'parent_only' => __('Parent Services Only', 'beauty-salon-services-manager'),
+                    'children_only' => __('Child Services Only', 'beauty-salon-services-manager'),
                     'manual' => __('Manual Selection', 'beauty-salon-services-manager'),
                 ),
             )
         );
 
-        // Get all service groups
-        $service_groups = get_terms(array(
-            'taxonomy' => 'bslm_service_group',
-            'hide_empty' => false,
+        // Get all parent services (services with no parent)
+        $parent_services = get_posts(array(
+            'post_type' => 'bslm_service',
+            'post_status' => 'publish',
+            'posts_per_page' => -1,
+            'post_parent' => 0,
+            'orderby' => 'title',
+            'order' => 'ASC',
         ));
 
-        $group_options = array();
-        if (!empty($service_groups) && !is_wp_error($service_groups)) {
-            foreach ($service_groups as $group) {
-                $group_options[$group->term_id] = $group->name;
+        $parent_options = array();
+        if (!empty($parent_services)) {
+            foreach ($parent_services as $service) {
+                $parent_options[$service->ID] = $service->post_title;
             }
         }
 
         $this->add_control(
-            'service_groups',
+            'parent_service',
             array(
-                'label' => __('Select Service Groups', 'beauty-salon-services-manager'),
+                'label' => __('Select Parent Service', 'beauty-salon-services-manager'),
                 'type' => \Elementor\Controls_Manager::SELECT2,
                 'multiple' => true,
-                'options' => $group_options,
+                'options' => $parent_options,
                 'condition' => array(
-                    'query_type' => 'by_group',
+                    'query_type' => 'by_parent',
                 ),
             )
         );
@@ -991,14 +997,17 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
         );
 
         // Handle different query types
-        if ($settings['query_type'] === 'by_group' && !empty($settings['service_groups'])) {
-            $args['tax_query'] = array(
-                array(
-                    'taxonomy' => 'bslm_service_group',
-                    'field' => 'term_id',
-                    'terms' => $settings['service_groups'],
-                ),
-            );
+        if ($settings['query_type'] === 'by_parent' && !empty($settings['parent_service'])) {
+            // Get children of selected parent services
+            $args['post_parent__in'] = $settings['parent_service'];
+            $args['posts_per_page'] = $settings['posts_per_page'];
+        } elseif ($settings['query_type'] === 'parent_only') {
+            // Only parent services (no parent)
+            $args['post_parent'] = 0;
+            $args['posts_per_page'] = $settings['posts_per_page'];
+        } elseif ($settings['query_type'] === 'children_only') {
+            // Only child services (has parent)
+            $args['post_parent__not_in'] = array(0);
             $args['posts_per_page'] = $settings['posts_per_page'];
         } elseif ($settings['query_type'] === 'manual' && !empty($settings['manual_services'])) {
             $args['post__in'] = $settings['manual_services'];

@@ -45,9 +45,8 @@ class BSLM_Post_Types {
             'label'                 => __('Service', 'beauty-salon-services-manager'),
             'description'           => __('Beauty and laser epilation services', 'beauty-salon-services-manager'),
             'labels'                => $labels,
-            'supports'              => array('title', 'editor', 'thumbnail', 'custom-fields', 'elementor'),
-            'taxonomies'            => array('bslm_service_group'),
-            'hierarchical'          => false,
+            'supports'              => array('title', 'editor', 'thumbnail', 'custom-fields', 'page-attributes', 'elementor'),
+            'hierarchical'          => true,
             'public'                => true,
             'show_ui'               => true,
             'show_in_menu'          => true,
@@ -66,6 +65,7 @@ class BSLM_Post_Types {
             'rewrite'               => array(
                 'slug'       => 'service',
                 'with_front' => false,
+                'hierarchical' => true,
             ),
         );
 
