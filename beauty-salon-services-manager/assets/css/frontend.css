@@ -482,6 +482,45 @@
     color: #333333;
 }
 
+/* Service Meta Widget (Price & Time) */
+.bslm-service-meta-widget {
+    display: flex;
+    align-items: center;
+}
+
+.bslm-service-meta-widget.layout-horizontal {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.bslm-service-meta-widget.layout-vertical {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.bslm-service-meta-widget.layout-inline {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.bslm-service-meta-widget .bslm-meta-item {
+    display: flex;
+    align-items: center;
+}
+
+.bslm-service-meta-widget .bslm-meta-icon {
+    display: inline-flex;
+    align-items: center;
+}
+
+.bslm-service-meta-widget .bslm-meta-label {
+    font-weight: 500;
+}
+
+.bslm-service-meta-widget .bslm-meta-value {
+    font-weight: 600;
+}
+
 /* Loading Animation */
 .bslm-services-grid.loading {
     opacity: 0.5;
