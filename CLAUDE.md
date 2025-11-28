@@ -47,7 +47,8 @@ WP-Salon/
     │   ├── class-settings.php              # Admin settings page
     │   └── widgets/                        # Elementor widgets
     │       ├── class-beauty-services-grid-widget.php
-    │       └── class-service-meta-widget.php
+    │       ├── class-service-meta-widget.php
+    │       └── class-services-by-tag-widget.php
     ├── templates/                          # Frontend templates
     │   ├── single-service.php              # Service detail page
     │   ├── service-card.php                # Reusable card component
@@ -112,6 +113,24 @@ bslm_category_icon       // Icon attachment ID for the category
 **URL Structure:**
 - Archive: `/service-category/category-name/`
 - Hierarchical: `/service-category/parent/child/`
+
+### Custom Taxonomy: `bslm_service_tag`
+
+**Purpose:** Tag services with keywords for flexible filtering
+**Features:**
+- Non-hierarchical (tag-style)
+- REST API enabled
+- Shown in admin column
+- Tag cloud support
+- Multiple tags per service
+
+**URL Structure:**
+- Archive: `/service-tag/tag-name/`
+
+**Use Cases:**
+- Filter services by characteristics (e.g., "anti-aging", "relaxing", "quick")
+- Cross-category filtering
+- Tag-based Elementor widget filtering
 
 ### Plugin Architecture Pattern
 
@@ -221,6 +240,36 @@ card_layout         // vertical|horizontal_left|horizontal_right|button
 - Comprehensive styling options
 
 **Important:** This widget only displays on `is_singular('bslm_service')` pages.
+
+### Widget 3: Services By Tag
+
+**File:** `includes/widgets/class-services-by-tag-widget.php`
+**Widget Name:** `services-by-tag`
+**Category:** Beauty Salon
+**Use Case:** Display services filtered by tags
+
+**Key Features:**
+- Tag-based filtering with multi-select
+- Tag operator: Match ANY (OR) or Match ALL (AND)
+- Responsive column controls
+- Show/hide: Image, Title, Description, Time, Price, Tags, Button
+- Extensive styling controls
+- Tag display on cards
+
+**Important Controls:**
+```php
+selected_tags       // Array of tag IDs to filter
+tag_operator        // IN|AND (match any or all tags)
+posts_per_page      // Number of services
+orderby             // date|title|menu_order|rand
+columns             // Responsive (desktop/tablet/mobile)
+show_tags           // Display tags on each card
+```
+
+**Usage Examples:**
+- Create a "Quick Services" page showing all services tagged as "quick"
+- Display "Anti-Aging Treatments" combining multiple service categories
+- Show "Relaxing Services" across different service groups
 
 ### Elementor Pro Support
 
@@ -969,8 +1018,10 @@ Bad examples:
 - **Main class:** `includes/class-beauty-salon-services-manager.php`
 - **Grid widget:** `includes/widgets/class-beauty-services-grid-widget.php`
 - **Meta widget:** `includes/widgets/class-service-meta-widget.php`
+- **Tag widget:** `includes/widgets/class-services-by-tag-widget.php`
 - **Meta boxes:** `includes/class-meta-boxes.php`
 - **Post types:** `includes/class-post-types.php`
+- **Taxonomies:** `includes/class-taxonomies.php`
 - **Frontend styles:** `assets/css/frontend.css`
 - **Frontend scripts:** `assets/js/frontend.js`
 
@@ -990,16 +1041,19 @@ Bad examples:
 
 **Recent Git History Highlights:**
 
-1. **Hierarchical Service Structure** - Moved from flat to parent/child services
-2. **Service Meta Widget** - Added dedicated widget for single pages (price/time display)
-3. **Elementor Free Support** - Category templates work without Elementor Pro
-4. **Image Display Modes** - Added flexible image sizing (full/small/icon)
-5. **URL Structure Cleanup** - Removed `/services/` prefix from categories
+1. **Tag-Based Taxonomy** - Added `bslm_service_tag` for flexible service tagging
+2. **Services By Tag Widget** - New Elementor widget for tag-based filtering
+3. **Hierarchical Service Structure** - Moved from flat to parent/child services
+4. **Service Meta Widget** - Added dedicated widget for single pages (price/time display)
+5. **Elementor Free Support** - Category templates work without Elementor Pro
+6. **Image Display Modes** - Added flexible image sizing (full/small/icon)
+7. **URL Structure Cleanup** - Removed `/services/` prefix from categories
 
 **Key Architectural Decisions:**
 
 - **Why hierarchical services?** - Salons offer service variations (e.g., Basic Facial vs. Anti-Aging Facial)
-- **Why two Elementor widgets?** - Different use cases: Grid for listings, Meta for single pages
+- **Why three Elementor widgets?** - Different use cases: Grid for general listings, Meta for single pages, Tags for cross-category filtering
+- **Why tag taxonomy?** - Enables flexible cross-category filtering (e.g., "quick", "anti-aging", "relaxing")
 - **Why shortcodes?** - Allow Elementor Free users to build custom category templates
 - **Why custom template loader?** - Provides theme override capability
 - **Why prefix with underscore on meta?** - Hides from Custom Fields UI (cleaner admin)
