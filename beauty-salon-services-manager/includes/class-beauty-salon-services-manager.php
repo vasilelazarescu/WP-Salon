@@ -50,6 +50,7 @@ class Beauty_Salon_Services_Manager {
     private function load_dependencies() {
         require_once BSLM_PLUGIN_DIR . 'includes/class-loader.php';
         require_once BSLM_PLUGIN_DIR . 'includes/class-post-types.php';
+        require_once BSLM_PLUGIN_DIR . 'includes/class-taxonomies.php';
         require_once BSLM_PLUGIN_DIR . 'includes/class-meta-boxes.php';
         require_once BSLM_PLUGIN_DIR . 'includes/class-elementor-widget.php';
         require_once BSLM_PLUGIN_DIR . 'includes/class-shortcodes.php';
@@ -65,6 +66,10 @@ class Beauty_Salon_Services_Manager {
         // Register custom post types
         $post_types = new BSLM_Post_Types();
         $this->loader->add_action('init', $post_types, 'register_post_types');
+
+        // Register taxonomies
+        $taxonomies = new BSLM_Taxonomies();
+        $this->loader->add_action('init', $taxonomies, 'register_taxonomies');
 
         // Register meta boxes
         $meta_boxes = new BSLM_Meta_Boxes();
