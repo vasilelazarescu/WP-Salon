@@ -668,6 +668,21 @@ class BSLM_Services_By_Tag_Widget extends \Elementor\Widget_Base {
         );
 
         $this->add_control(
+            'image_position',
+            array(
+                'label' => __('Image Position', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'default' => 'top',
+                'options' => array(
+                    'top' => __('Top (Default)', 'beauty-salon-services-manager'),
+                    'left' => __('Float Left', 'beauty-salon-services-manager'),
+                    'right' => __('Float Right', 'beauty-salon-services-manager'),
+                ),
+                'description' => __('Choose how the image is positioned relative to text. Float options allow text to wrap around the image.', 'beauty-salon-services-manager'),
+            )
+        );
+
+        $this->add_control(
             'image_object_fit',
             array(
                 'label' => __('Object Fit', 'beauty-salon-services-manager'),
@@ -888,6 +903,11 @@ class BSLM_Services_By_Tag_Widget extends \Elementor\Widget_Base {
         $price = get_post_meta($post_id, '_bslm_service_price', true);
 
         $card_classes = array('bslm-service-card');
+
+        // Add image position class
+        if (isset($settings['image_position']) && $settings['image_position'] !== 'top') {
+            $card_classes[] = 'image-' . $settings['image_position'];
+        }
 
         // Add hover effect class if set
         if (isset($settings['image_hover_effect']) && $settings['image_hover_effect'] !== 'none') {

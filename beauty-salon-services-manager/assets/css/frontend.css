@@ -546,6 +546,45 @@
     outline-offset: 2px;
 }
 
+/* Image Float Layouts */
+.bslm-service-card.image-left .bslm-service-image {
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 15px;
+    max-width: 40%;
+}
+
+.bslm-service-card.image-right .bslm-service-image {
+    float: right;
+    margin-left: 20px;
+    margin-bottom: 15px;
+    max-width: 40%;
+}
+
+.bslm-service-card.image-left .bslm-service-content,
+.bslm-service-card.image-right .bslm-service-content {
+    overflow: hidden; /* Clearfix for floated images */
+}
+
+/* Ensure content clears floats */
+.bslm-service-card.image-left::after,
+.bslm-service-card.image-right::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive: Remove float on mobile */
+@media (max-width: 768px) {
+    .bslm-service-card.image-left .bslm-service-image,
+    .bslm-service-card.image-right .bslm-service-image {
+        float: none;
+        margin-left: 0;
+        margin-right: 0;
+        max-width: 100%;
+    }
+}
+
 /* Card Image Hover Effects */
 .bslm-service-image {
     overflow: hidden;
