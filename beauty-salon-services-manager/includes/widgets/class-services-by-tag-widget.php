@@ -559,6 +559,232 @@ class BSLM_Services_By_Tag_Widget extends \Elementor\Widget_Base {
             )
         );
 
+        $this->add_responsive_control(
+            'title_margin',
+            array(
+                'label' => __('Margin', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                'size_units' => array('px', 'em', '%'),
+                'selectors' => array(
+                    '{{WRAPPER}} .bslm-service-title' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ),
+            )
+        );
+
+        $this->add_responsive_control(
+            'title_padding',
+            array(
+                'label' => __('Padding', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                'size_units' => array('px', 'em', '%'),
+                'selectors' => array(
+                    '{{WRAPPER}} .bslm-service-title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ),
+            )
+        );
+
+        $this->add_control(
+            'title_text_align',
+            array(
+                'label' => __('Alignment', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::CHOOSE,
+                'options' => array(
+                    'left' => array(
+                        'title' => __('Left', 'beauty-salon-services-manager'),
+                        'icon' => 'eicon-text-align-left',
+                    ),
+                    'center' => array(
+                        'title' => __('Center', 'beauty-salon-services-manager'),
+                        'icon' => 'eicon-text-align-center',
+                    ),
+                    'right' => array(
+                        'title' => __('Right', 'beauty-salon-services-manager'),
+                        'icon' => 'eicon-text-align-right',
+                    ),
+                ),
+                'selectors' => array(
+                    '{{WRAPPER}} .bslm-service-title' => 'text-align: {{VALUE}};',
+                ),
+            )
+        );
+
+        $this->end_controls_section();
+
+        // Style Tab - Image
+        $this->start_controls_section(
+            'section_image_style',
+            array(
+                'label' => __('Image', 'beauty-salon-services-manager'),
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+                'condition' => array(
+                    'show_image' => 'yes',
+                ),
+            )
+        );
+
+        $this->add_responsive_control(
+            'image_width',
+            array(
+                'label' => __('Width', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'size_units' => array('px', '%'),
+                'range' => array(
+                    'px' => array(
+                        'min' => 50,
+                        'max' => 1000,
+                    ),
+                    '%' => array(
+                        'min' => 10,
+                        'max' => 100,
+                    ),
+                ),
+                'selectors' => array(
+                    '{{WRAPPER}} .bslm-service-image' => 'width: {{SIZE}}{{UNIT}};',
+                ),
+            )
+        );
+
+        $this->add_responsive_control(
+            'image_height',
+            array(
+                'label' => __('Height', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'size_units' => array('px', 'vh'),
+                'range' => array(
+                    'px' => array(
+                        'min' => 50,
+                        'max' => 800,
+                    ),
+                    'vh' => array(
+                        'min' => 10,
+                        'max' => 100,
+                    ),
+                ),
+                'selectors' => array(
+                    '{{WRAPPER}} .bslm-service-image' => 'height: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .bslm-service-image img' => 'height: 100%;',
+                ),
+            )
+        );
+
+        $this->add_control(
+            'image_object_fit',
+            array(
+                'label' => __('Object Fit', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'default' => 'cover',
+                'options' => array(
+                    'cover' => __('Cover', 'beauty-salon-services-manager'),
+                    'contain' => __('Contain', 'beauty-salon-services-manager'),
+                    'fill' => __('Fill', 'beauty-salon-services-manager'),
+                    'none' => __('None', 'beauty-salon-services-manager'),
+                ),
+                'selectors' => array(
+                    '{{WRAPPER}} .bslm-service-image img' => 'object-fit: {{VALUE}};',
+                ),
+            )
+        );
+
+        $this->add_control(
+            'image_object_position',
+            array(
+                'label' => __('Object Position', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'default' => 'center center',
+                'options' => array(
+                    'center center' => __('Center Center', 'beauty-salon-services-manager'),
+                    'top center' => __('Top Center', 'beauty-salon-services-manager'),
+                    'top left' => __('Top Left', 'beauty-salon-services-manager'),
+                    'top right' => __('Top Right', 'beauty-salon-services-manager'),
+                    'center left' => __('Center Left', 'beauty-salon-services-manager'),
+                    'center right' => __('Center Right', 'beauty-salon-services-manager'),
+                    'bottom center' => __('Bottom Center', 'beauty-salon-services-manager'),
+                    'bottom left' => __('Bottom Left', 'beauty-salon-services-manager'),
+                    'bottom right' => __('Bottom Right', 'beauty-salon-services-manager'),
+                ),
+                'selectors' => array(
+                    '{{WRAPPER}} .bslm-service-image img' => 'object-position: {{VALUE}};',
+                ),
+                'condition' => array(
+                    'image_object_fit!' => 'fill',
+                ),
+            )
+        );
+
+        $this->add_responsive_control(
+            'image_margin',
+            array(
+                'label' => __('Margin', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                'size_units' => array('px', 'em', '%'),
+                'selectors' => array(
+                    '{{WRAPPER}} .bslm-service-image' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ),
+            )
+        );
+
+        $this->add_responsive_control(
+            'image_padding',
+            array(
+                'label' => __('Padding', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                'size_units' => array('px', 'em', '%'),
+                'selectors' => array(
+                    '{{WRAPPER}} .bslm-service-image' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ),
+            )
+        );
+
+        $this->add_control(
+            'image_border_radius',
+            array(
+                'label' => __('Border Radius', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                'size_units' => array('px', '%'),
+                'selectors' => array(
+                    '{{WRAPPER}} .bslm-service-image' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .bslm-service-image img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ),
+            )
+        );
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Border::get_type(),
+            array(
+                'name' => 'image_border',
+                'selector' => '{{WRAPPER}} .bslm-service-image',
+            )
+        );
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Box_Shadow::get_type(),
+            array(
+                'name' => 'image_box_shadow',
+                'selector' => '{{WRAPPER}} .bslm-service-image',
+            )
+        );
+
+        $this->add_control(
+            'image_opacity',
+            array(
+                'label' => __('Opacity', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'range' => array(
+                    'px' => array(
+                        'min' => 0,
+                        'max' => 1,
+                        'step' => 0.1,
+                    ),
+                ),
+                'default' => array(
+                    'size' => 1,
+                ),
+                'selectors' => array(
+                    '{{WRAPPER}} .bslm-service-image img' => 'opacity: {{SIZE}};',
+                ),
+            )
+        );
+
         $this->end_controls_section();
 
         // Style Tab - Tags
