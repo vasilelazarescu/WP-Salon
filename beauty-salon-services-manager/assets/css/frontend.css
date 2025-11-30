@@ -120,15 +120,27 @@
 .bslm-service-card.layout-two-column-grid .bslm-service-content {
     width: 75%;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
     padding: 15px 20px;
 }
 
 .bslm-service-card.layout-two-column-grid .bslm-service-title {
-    margin: 0;
+    margin: 0 0 8px 0;
     font-size: 16px;
     font-weight: 600;
     line-height: 1.4;
+}
+
+.bslm-service-card.layout-two-column-grid .bslm-service-description {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.bslm-service-card.layout-two-column-grid .bslm-service-meta {
+    margin: 0;
+    font-size: 13px;
 }
 
 /* Remove background for button layout image modes */

@@ -1206,8 +1206,8 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
                     <?php
                 }
 
-                // Description (hidden for button layout)
-                if ($settings['show_description'] === 'yes' && !$is_button_layout) {
+                // Description
+                if ($settings['show_description'] === 'yes') {
                     $excerpt_length = $settings['description_length'];
                     $excerpt = wp_trim_words(get_the_excerpt(), $excerpt_length, '...');
                     ?>
@@ -1217,8 +1217,8 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
                     <?php
                 }
 
-                // Meta (Time/Price) - hidden for button layout
-                if (!$is_button_layout && (($settings['show_time'] === 'yes' && $time) || ($settings['show_price'] === 'yes' && $price))) {
+                // Meta (Time/Price)
+                if (($settings['show_time'] === 'yes' && $time) || ($settings['show_price'] === 'yes' && $price)) {
                     ?>
                     <div class="bslm-service-meta">
                         <?php
