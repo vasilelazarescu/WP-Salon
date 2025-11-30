@@ -602,6 +602,31 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
             )
         );
 
+        $this->add_responsive_control(
+            'content_align',
+            array(
+                'label' => __('Content Alignment', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::CHOOSE,
+                'options' => array(
+                    'left' => array(
+                        'title' => __('Left', 'beauty-salon-services-manager'),
+                        'icon' => 'eicon-text-align-left',
+                    ),
+                    'center' => array(
+                        'title' => __('Center', 'beauty-salon-services-manager'),
+                        'icon' => 'eicon-text-align-center',
+                    ),
+                    'right' => array(
+                        'title' => __('Right', 'beauty-salon-services-manager'),
+                        'icon' => 'eicon-text-align-right',
+                    ),
+                ),
+                'selectors' => array(
+                    '{{WRAPPER}} .bslm-service-content' => 'text-align: {{VALUE}};',
+                ),
+            )
+        );
+
         $this->end_controls_section();
 
         // Style Tab - Image
