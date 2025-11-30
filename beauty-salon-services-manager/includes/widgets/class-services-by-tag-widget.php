@@ -405,6 +405,127 @@ class BSLM_Services_By_Tag_Widget extends \Elementor\Widget_Base {
             )
         );
 
+        $this->add_responsive_control(
+            'card_margin',
+            array(
+                'label' => __('Margin', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                'size_units' => array('px', 'em', '%'),
+                'selectors' => array(
+                    '{{WRAPPER}} .bslm-service-card' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ),
+            )
+        );
+
+        $this->add_control(
+            'card_transition',
+            array(
+                'label' => __('Transition Duration (ms)', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'range' => array(
+                    'px' => array(
+                        'min' => 0,
+                        'max' => 1000,
+                    ),
+                ),
+                'default' => array(
+                    'size' => 300,
+                ),
+                'selectors' => array(
+                    '{{WRAPPER}} .bslm-service-card' => 'transition: all {{SIZE}}ms ease;',
+                ),
+            )
+        );
+
+        $this->end_controls_section();
+
+        // Style Tab - Hover Effects
+        $this->start_controls_section(
+            'section_card_hover',
+            array(
+                'label' => __('Card Hover Effects', 'beauty-salon-services-manager'),
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+            )
+        );
+
+        $this->add_control(
+            'card_hover_background',
+            array(
+                'label' => __('Hover Background Color', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'selectors' => array(
+                    '{{WRAPPER}} .bslm-service-card:hover' => 'background-color: {{VALUE}};',
+                ),
+            )
+        );
+
+        $this->add_control(
+            'card_hover_border_color',
+            array(
+                'label' => __('Hover Border Color', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'selectors' => array(
+                    '{{WRAPPER}} .bslm-service-card:hover' => 'border-color: {{VALUE}};',
+                ),
+            )
+        );
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Box_Shadow::get_type(),
+            array(
+                'name' => 'card_hover_box_shadow',
+                'label' => __('Hover Box Shadow', 'beauty-salon-services-manager'),
+                'selector' => '{{WRAPPER}} .bslm-service-card:hover',
+            )
+        );
+
+        $this->add_control(
+            'card_hover_transform',
+            array(
+                'label' => __('Hover Transform', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'default' => 'none',
+                'options' => array(
+                    'none' => __('None', 'beauty-salon-services-manager'),
+                    'translateY(-5px)' => __('Lift Up', 'beauty-salon-services-manager'),
+                    'translateY(-10px)' => __('Lift Up More', 'beauty-salon-services-manager'),
+                    'scale(1.03)' => __('Scale Up (Small)', 'beauty-salon-services-manager'),
+                    'scale(1.05)' => __('Scale Up (Medium)', 'beauty-salon-services-manager'),
+                    'scale(1.08)' => __('Scale Up (Large)', 'beauty-salon-services-manager'),
+                ),
+                'selectors' => array(
+                    '{{WRAPPER}} .bslm-service-card:hover' => 'transform: {{VALUE}};',
+                ),
+            )
+        );
+
+        $this->add_control(
+            'title_hover_color',
+            array(
+                'label' => __('Title Hover Color', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'selectors' => array(
+                    '{{WRAPPER}} .bslm-service-card:hover .bslm-service-title a' => 'color: {{VALUE}};',
+                ),
+            )
+        );
+
+        $this->add_control(
+            'image_hover_effect',
+            array(
+                'label' => __('Image Hover Effect', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'default' => 'none',
+                'options' => array(
+                    'none' => __('None', 'beauty-salon-services-manager'),
+                    'zoom' => __('Zoom In', 'beauty-salon-services-manager'),
+                    'zoom-out' => __('Zoom Out', 'beauty-salon-services-manager'),
+                    'opacity' => __('Opacity', 'beauty-salon-services-manager'),
+                    'grayscale' => __('Remove Grayscale', 'beauty-salon-services-manager'),
+                ),
+            )
+        );
+
         $this->end_controls_section();
 
         // Style Tab - Title
@@ -541,6 +662,12 @@ class BSLM_Services_By_Tag_Widget extends \Elementor\Widget_Base {
         $price = get_post_meta($post_id, '_bslm_service_price', true);
 
         $card_classes = array('bslm-service-card');
+
+        // Add hover effect class if set
+        if (isset($settings['image_hover_effect']) && $settings['image_hover_effect'] !== 'none') {
+            $card_classes[] = 'hover-effect-' . $settings['image_hover_effect'];
+        }
+
         $card_classes = apply_filters('bslm_service_card_classes', $card_classes, $post_id);
         ?>
         <div class="<?php echo esc_attr(implode(' ', $card_classes)); ?>">

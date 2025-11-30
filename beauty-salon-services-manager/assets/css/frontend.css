@@ -546,6 +546,56 @@
     outline-offset: 2px;
 }
 
+/* Card Image Hover Effects */
+.bslm-service-image {
+    overflow: hidden;
+}
+
+.bslm-service-image img {
+    transition: all 0.3s ease;
+}
+
+/* Zoom In Effect */
+.bslm-service-card.hover-effect-zoom:hover .bslm-service-image img {
+    transform: scale(1.1);
+}
+
+/* Zoom Out Effect */
+.bslm-service-card.hover-effect-zoom-out .bslm-service-image img {
+    transform: scale(1.1);
+}
+
+.bslm-service-card.hover-effect-zoom-out:hover .bslm-service-image img {
+    transform: scale(1);
+}
+
+/* Opacity Effect */
+.bslm-service-card.hover-effect-opacity .bslm-service-image img {
+    opacity: 1;
+}
+
+.bslm-service-card.hover-effect-opacity:hover .bslm-service-image img {
+    opacity: 0.7;
+}
+
+/* Grayscale Effect */
+.bslm-service-card.hover-effect-grayscale .bslm-service-image img {
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+}
+
+.bslm-service-card.hover-effect-grayscale:hover .bslm-service-image img {
+    filter: grayscale(0%);
+}
+
+/* Prevent hover effects on small/icon modes */
+.bslm-service-card.hover-effect-zoom:hover .bslm-service-image.display-small img,
+.bslm-service-card.hover-effect-zoom:hover .bslm-service-image.display-icon img,
+.bslm-service-card.hover-effect-zoom-out:hover .bslm-service-image.display-small img,
+.bslm-service-card.hover-effect-zoom-out:hover .bslm-service-image.display-icon img {
+    transform: none;
+}
+
 /* Print Styles */
 @media print {
     .bslm-service-card {
