@@ -70,6 +70,7 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
                     'by_parent' => __('By Parent Service', 'beauty-salon-services-manager'),
                     'parent_only' => __('Parent Services Only', 'beauty-salon-services-manager'),
                     'children_only' => __('Child Services Only', 'beauty-salon-services-manager'),
+                    'by_tag' => __('By Tag', 'beauty-salon-services-manager'),
                     'manual' => __('Manual Selection', 'beauty-salon-services-manager'),
                 ),
             )
@@ -101,6 +102,50 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
                 'options' => $parent_options,
                 'condition' => array(
                     'query_type' => 'by_parent',
+                ),
+            )
+        );
+
+        // Get all service tags
+        $service_tags = get_terms(array(
+            'taxonomy' => 'bslm_service_tag',
+            'hide_empty' => false,
+        ));
+
+        $tag_options = array();
+        if (!empty($service_tags) && !is_wp_error($service_tags)) {
+            foreach ($service_tags as $tag) {
+                $tag_options[$tag->term_id] = $tag->name;
+            }
+        }
+
+        $this->add_control(
+            'selected_tags',
+            array(
+                'label' => __('Select Tags', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::SELECT2,
+                'multiple' => true,
+                'options' => $tag_options,
+                'label_block' => true,
+                'condition' => array(
+                    'query_type' => 'by_tag',
+                ),
+            )
+        );
+
+        $this->add_control(
+            'tag_operator',
+            array(
+                'label' => __('Tag Operator', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'default' => 'IN',
+                'options' => array(
+                    'IN' => __('Match ANY (OR)', 'beauty-salon-services-manager'),
+                    'AND' => __('Match ALL (AND)', 'beauty-salon-services-manager'),
+                ),
+                'description' => __('Match services with ANY or ALL selected tags.', 'beauty-salon-services-manager'),
+                'condition' => array(
+                    'query_type' => 'by_tag',
                 ),
             )
         );
@@ -1008,6 +1053,17 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
         } elseif ($settings['query_type'] === 'children_only') {
             // Only child services (has parent)
             $args['post_parent__not_in'] = array(0);
+            $args['posts_per_page'] = $settings['posts_per_page'];
+        } elseif ($settings['query_type'] === 'by_tag' && !empty($settings['selected_tags'])) {
+            // Filter by tags
+            $args['tax_query'] = array(
+                array(
+                    'taxonomy' => 'bslm_service_tag',
+                    'field' => 'term_id',
+                    'terms' => $settings['selected_tags'],
+                    'operator' => isset($settings['tag_operator']) ? $settings['tag_operator'] : 'IN',
+                ),
+            );
             $args['posts_per_page'] = $settings['posts_per_page'];
         } elseif ($settings['query_type'] === 'manual' && !empty($settings['manual_services'])) {
             $args['post__in'] = $settings['manual_services'];
