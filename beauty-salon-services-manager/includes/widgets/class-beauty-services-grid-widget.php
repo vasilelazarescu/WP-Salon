@@ -647,6 +647,14 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
                 'label' => __('Content Padding', 'beauty-salon-services-manager'),
                 'type' => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => array('px', 'em', '%'),
+                'default' => array(
+                    'top' => '20',
+                    'right' => '20',
+                    'bottom' => '20',
+                    'left' => '20',
+                    'unit' => 'px',
+                    'isLinked' => true,
+                ),
                 'selectors' => array(
                     '{{WRAPPER}} .bslm-service-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ),
