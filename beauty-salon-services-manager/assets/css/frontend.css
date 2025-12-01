@@ -12,6 +12,7 @@
     margin: 0;
     padding: 0;
     list-style: none;
+    align-items: start; /* Allow cards to have natural height */
 }
 
 /* Service Card */
