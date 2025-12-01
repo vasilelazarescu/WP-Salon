@@ -374,7 +374,7 @@ class BSLM_Services_By_Tag_Widget extends \Elementor\Widget_Base {
                 'label' => __('Background Color', 'beauty-salon-services-manager'),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'selectors' => array(
-                    '{{WRAPPER}} .bslm-service-card' => 'background-color: {{VALUE}};',
+                    '{{WRAPPER}} .bslm-tag-card' => 'background-color: {{VALUE}};',
                 ),
             )
         );
@@ -383,7 +383,7 @@ class BSLM_Services_By_Tag_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Border::get_type(),
             array(
                 'name' => 'card_border',
-                'selector' => '{{WRAPPER}} .bslm-service-card',
+                'selector' => '{{WRAPPER}} .bslm-tag-card',
             )
         );
 
@@ -394,7 +394,7 @@ class BSLM_Services_By_Tag_Widget extends \Elementor\Widget_Base {
                 'type' => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => array('px', '%'),
                 'selectors' => array(
-                    '{{WRAPPER}} .bslm-service-card' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .bslm-tag-card' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ),
             )
         );
@@ -403,7 +403,7 @@ class BSLM_Services_By_Tag_Widget extends \Elementor\Widget_Base {
             \Elementor\Group_Control_Box_Shadow::get_type(),
             array(
                 'name' => 'card_box_shadow',
-                'selector' => '{{WRAPPER}} .bslm-service-card',
+                'selector' => '{{WRAPPER}} .bslm-tag-card',
             )
         );
 
@@ -414,7 +414,7 @@ class BSLM_Services_By_Tag_Widget extends \Elementor\Widget_Base {
                 'type' => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => array('px', 'em', '%'),
                 'selectors' => array(
-                    '{{WRAPPER}} .bslm-service-card' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .bslm-tag-card' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ),
             )
         );
@@ -426,7 +426,7 @@ class BSLM_Services_By_Tag_Widget extends \Elementor\Widget_Base {
                 'type' => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => array('px', 'em', '%'),
                 'selectors' => array(
-                    '{{WRAPPER}} .bslm-service-card' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .bslm-tag-card' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ),
             )
         );
@@ -446,7 +446,7 @@ class BSLM_Services_By_Tag_Widget extends \Elementor\Widget_Base {
                     'size' => 300,
                 ),
                 'selectors' => array(
-                    '{{WRAPPER}} .bslm-service-card' => 'transition: all {{SIZE}}ms ease;',
+                    '{{WRAPPER}} .bslm-tag-card' => 'transition: all {{SIZE}}ms ease;',
                 ),
             )
         );
@@ -513,7 +513,7 @@ class BSLM_Services_By_Tag_Widget extends \Elementor\Widget_Base {
                 'label' => __('Hover Background Color', 'beauty-salon-services-manager'),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'selectors' => array(
-                    '{{WRAPPER}} .bslm-service-card:hover' => 'background-color: {{VALUE}};',
+                    '{{WRAPPER}} .bslm-tag-card:hover' => 'background-color: {{VALUE}};',
                 ),
             )
         );
@@ -524,7 +524,7 @@ class BSLM_Services_By_Tag_Widget extends \Elementor\Widget_Base {
                 'label' => __('Hover Border Color', 'beauty-salon-services-manager'),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'selectors' => array(
-                    '{{WRAPPER}} .bslm-service-card:hover' => 'border-color: {{VALUE}};',
+                    '{{WRAPPER}} .bslm-tag-card:hover' => 'border-color: {{VALUE}};',
                 ),
             )
         );
@@ -534,7 +534,7 @@ class BSLM_Services_By_Tag_Widget extends \Elementor\Widget_Base {
             array(
                 'name' => 'card_hover_box_shadow',
                 'label' => __('Hover Box Shadow', 'beauty-salon-services-manager'),
-                'selector' => '{{WRAPPER}} .bslm-service-card:hover',
+                'selector' => '{{WRAPPER}} .bslm-tag-card:hover',
             )
         );
 
@@ -553,7 +553,7 @@ class BSLM_Services_By_Tag_Widget extends \Elementor\Widget_Base {
                     'scale(1.08)' => __('Scale Up (Large)', 'beauty-salon-services-manager'),
                 ),
                 'selectors' => array(
-                    '{{WRAPPER}} .bslm-service-card:hover' => 'transform: {{VALUE}};',
+                    '{{WRAPPER}} .bslm-tag-card:hover' => 'transform: {{VALUE}};',
                 ),
             )
         );
@@ -564,7 +564,7 @@ class BSLM_Services_By_Tag_Widget extends \Elementor\Widget_Base {
                 'label' => __('Title Hover Color', 'beauty-salon-services-manager'),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'selectors' => array(
-                    '{{WRAPPER}} .bslm-service-card:hover .bslm-service-title a' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .bslm-tag-card:hover .bslm-service-title a' => 'color: {{VALUE}};',
                 ),
             )
         );
@@ -961,7 +961,7 @@ class BSLM_Services_By_Tag_Widget extends \Elementor\Widget_Base {
         $time = get_post_meta($post_id, '_bslm_service_time', true);
         $price = get_post_meta($post_id, '_bslm_service_price', true);
 
-        $card_classes = array('bslm-service-card');
+        $card_classes = array('bslm-service-card', 'bslm-tag-card');
 
         // Add image position class
         if (isset($settings['image_position']) && $settings['image_position'] !== 'top') {

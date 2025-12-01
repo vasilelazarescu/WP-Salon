@@ -365,8 +365,8 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
                     'size' => 25,
                 ),
                 'selectors' => array(
-                    '{{WRAPPER}} .bslm-service-card.layout-two-column-grid .bslm-service-image' => 'width: {{SIZE}}{{UNIT}};',
-                    '{{WRAPPER}} .bslm-service-card.layout-two-column-grid .bslm-service-content' => 'width: calc(100% - {{SIZE}}{{UNIT}});',
+                    '{{WRAPPER}} .bslm-grid-card.layout-two-column-grid .bslm-service-image' => 'width: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .bslm-grid-card.layout-two-column-grid .bslm-service-content' => 'width: calc(100% - {{SIZE}}{{UNIT}});',
                 ),
                 'condition' => array(
                     'show_image' => 'yes',
@@ -569,7 +569,7 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'default' => '#ffffff',
                 'selectors' => array(
-                    '{{WRAPPER}} .bslm-service-card' => 'background-color: {{VALUE}};',
+                    '{{WRAPPER}} .bslm-grid-card' => 'background-color: {{VALUE}};',
                 ),
             )
         );
@@ -579,7 +579,7 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
             array(
                 'name' => 'card_border',
                 'label' => __('Border', 'beauty-salon-services-manager'),
-                'selector' => '{{WRAPPER}} .bslm-service-card',
+                'selector' => '{{WRAPPER}} .bslm-grid-card',
             )
         );
 
@@ -590,7 +590,7 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
                 'type' => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => array('px', '%'),
                 'selectors' => array(
-                    '{{WRAPPER}} .bslm-service-card' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .bslm-grid-card' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ),
             )
         );
@@ -600,7 +600,7 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
             array(
                 'name' => 'card_box_shadow',
                 'label' => __('Box Shadow', 'beauty-salon-services-manager'),
-                'selector' => '{{WRAPPER}} .bslm-service-card',
+                'selector' => '{{WRAPPER}} .bslm-grid-card',
             )
         );
 
@@ -611,7 +611,7 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
                 'type' => \Elementor\Controls_Manager::DIMENSIONS,
                 'size_units' => array('px', 'em', '%'),
                 'selectors' => array(
-                    '{{WRAPPER}} .bslm-service-card' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    '{{WRAPPER}} .bslm-grid-card' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ),
             )
         );
@@ -791,8 +791,8 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
                 'selectors' => array(
                     '{{WRAPPER}} .bslm-service-title:hover' => 'color: {{VALUE}};',
                     '{{WRAPPER}} .bslm-service-title a:hover' => 'color: {{VALUE}};',
-                    '{{WRAPPER}} .bslm-service-card:hover .bslm-service-title' => 'color: {{VALUE}};',
-                    '{{WRAPPER}} .bslm-service-card:hover .bslm-service-title a' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .bslm-grid-card:hover .bslm-service-title' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .bslm-grid-card:hover .bslm-service-title a' => 'color: {{VALUE}};',
                 ),
             )
         );
@@ -1159,7 +1159,7 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
         $time = get_post_meta($post_id, '_bslm_service_time', true);
         $price = get_post_meta($post_id, '_bslm_service_price', true);
 
-        $card_classes = array('bslm-service-card');
+        $card_classes = array('bslm-service-card', 'bslm-grid-card');
 
         // Add layout class
         if (isset($settings['card_layout'])) {
