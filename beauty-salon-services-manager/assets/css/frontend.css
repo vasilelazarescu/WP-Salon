@@ -42,8 +42,9 @@
 }
 
 .bslm-service-card.layout-horizontal-left .bslm-service-image img {
+    width: 100%;
     height: 100%;
-    min-height: 250px;
+    object-fit: cover;
 }
 
 .bslm-service-card.layout-horizontal-left .bslm-service-content {
@@ -61,8 +62,9 @@
 }
 
 .bslm-service-card.layout-horizontal-right .bslm-service-image img {
+    width: 100%;
     height: 100%;
-    min-height: 250px;
+    object-fit: cover;
 }
 
 .bslm-service-card.layout-horizontal-right .bslm-service-content {
@@ -72,7 +74,6 @@
 /* Two-Column Grid Layout - Button-like Display */
 .bslm-service-card.layout-two-column-grid {
     flex-direction: row;
-    min-height: 64px;
     cursor: pointer;
     transition: all 0.2s ease;
     border-radius: 4px;
@@ -219,7 +220,6 @@
     justify-content: center;
     background: #f9f9f9;
     padding: 30px;
-    min-height: 150px;
 }
 
 .bslm-service-image.display-icon img {
