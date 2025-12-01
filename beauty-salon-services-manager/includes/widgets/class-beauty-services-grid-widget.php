@@ -1137,7 +1137,7 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
         $query = new WP_Query($args);
 
         if ($query->have_posts()) {
-            echo '<div class="bslm-services-grid">';
+            echo '<div id="bslm-services-grid-' . esc_attr($this->get_id()) . '" class="bslm-services-grid">';
 
             while ($query->have_posts()) {
                 $query->the_post();

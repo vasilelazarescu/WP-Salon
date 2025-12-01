@@ -418,7 +418,7 @@ class BSLM_Service_Meta_Widget extends \Elementor\Widget_Base {
 
         $layout_class = 'layout-' . $settings['layout'];
         ?>
-        <div class="bslm-service-meta-widget <?php echo esc_attr($layout_class); ?>">
+        <div id="bslm-service-meta-<?php echo esc_attr($this->get_id()); ?>" class="bslm-service-meta-widget <?php echo esc_attr($layout_class); ?>">
             <?php if ($settings['show_price'] === 'yes' && !empty($price)) : ?>
                 <div class="bslm-meta-item bslm-meta-price">
                     <?php if ($settings['show_icons'] === 'yes') : ?>

@@ -939,7 +939,7 @@ class BSLM_Services_By_Tag_Widget extends \Elementor\Widget_Base {
         $query = new WP_Query($args);
 
         if ($query->have_posts()) {
-            echo '<div class="bslm-services-grid bslm-services-by-tag">';
+            echo '<div id="bslm-services-by-tag-' . esc_attr($this->get_id()) . '" class="bslm-services-grid bslm-services-by-tag">';
 
             while ($query->have_posts()) {
                 $query->the_post();
