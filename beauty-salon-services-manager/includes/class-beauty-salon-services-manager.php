@@ -104,6 +104,9 @@ class Beauty_Salon_Services_Manager {
      * of the plugin.
      */
     private function define_public_hooks() {
+        // Register styles and scripts early for Elementor widget dependencies
+        $this->loader->add_action('wp_loaded', $this, 'register_public_assets');
+
         // Enqueue public styles and scripts
         $this->loader->add_action('wp_enqueue_scripts', $this, 'enqueue_public_styles');
         $this->loader->add_action('wp_enqueue_scripts', $this, 'enqueue_public_scripts');
@@ -119,6 +122,29 @@ class Beauty_Salon_Services_Manager {
      */
     public function run() {
         $this->loader->run();
+    }
+
+    /**
+     * Register public assets early for Elementor widget dependencies.
+     */
+    public function register_public_assets() {
+        // Register frontend CSS
+        wp_register_style(
+            $this->plugin_name,
+            BSLM_PLUGIN_URL . 'assets/css/frontend.css',
+            array(),
+            $this->version,
+            'all'
+        );
+
+        // Register frontend JS
+        wp_register_script(
+            $this->plugin_name,
+            BSLM_PLUGIN_URL . 'assets/js/frontend.js',
+            array('jquery'),
+            $this->version,
+            false
+        );
     }
 
     /**
@@ -149,28 +175,18 @@ class Beauty_Salon_Services_Manager {
 
     /**
      * Enqueue public styles.
+     * Assets are already registered, just enqueue them.
      */
     public function enqueue_public_styles() {
-        wp_enqueue_style(
-            $this->plugin_name,
-            BSLM_PLUGIN_URL . 'assets/css/frontend.css',
-            array(),
-            $this->version,
-            'all'
-        );
+        wp_enqueue_style($this->plugin_name);
     }
 
     /**
      * Enqueue public scripts.
+     * Assets are already registered, just enqueue them.
      */
     public function enqueue_public_scripts() {
-        wp_enqueue_script(
-            $this->plugin_name,
-            BSLM_PLUGIN_URL . 'assets/js/frontend.js',
-            array('jquery'),
-            $this->version,
-            false
-        );
+        wp_enqueue_script($this->plugin_name);
     }
 
     /**
