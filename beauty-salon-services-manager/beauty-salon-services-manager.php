@@ -3,7 +3,7 @@
  * Plugin Name: Beauty Salon Services Manager
  * Plugin URI: https://github.com/yourusername/beauty-salon-services-manager
  * Description: A WordPress plugin that enables beauty salons and laser epilation clinics to manage and display their services in organized groups with full Elementor integration.
- * Version: 1.1.3
+ * Version: 1.1.4
  * Author: Your Name
  * Author URI: https://yourwebsite.com
  * License: GPL v2 or later
@@ -22,7 +22,7 @@ if (!defined('WPINC')) {
 /**
  * Currently plugin version.
  */
-define('BSLM_VERSION', '1.1.3');
+define('BSLM_VERSION', '1.1.4');
 define('BSLM_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('BSLM_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('BSLM_PLUGIN_BASENAME', plugin_basename(__FILE__));

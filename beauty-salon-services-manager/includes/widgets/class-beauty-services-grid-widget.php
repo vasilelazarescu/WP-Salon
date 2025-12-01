@@ -47,6 +47,20 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
     }
 
     /**
+     * Get style dependencies.
+     */
+    public function get_style_depends() {
+        return array('beauty-salon-services-manager');
+    }
+
+    /**
+     * Get script dependencies.
+     */
+    public function get_script_depends() {
+        return array('beauty-salon-services-manager');
+    }
+
+    /**
      * Register widget controls.
      */
     protected function register_controls() {
