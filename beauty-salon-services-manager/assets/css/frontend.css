@@ -15,8 +15,8 @@
     align-items: start; /* Allow cards to have natural height */
 }
 
-/* Service Card */
-.bslm-service-card {
+/* Service Card - Grid Widget */
+.bslm-grid-card {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -27,7 +27,24 @@
     transition: all 0.3s ease;
 }
 
-.bslm-service-card:hover {
+.bslm-grid-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Service Card - Tag Widget */
+.bslm-tag-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.bslm-tag-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }

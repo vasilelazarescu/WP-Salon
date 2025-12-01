@@ -961,7 +961,7 @@ class BSLM_Services_By_Tag_Widget extends \Elementor\Widget_Base {
         $time = get_post_meta($post_id, '_bslm_service_time', true);
         $price = get_post_meta($post_id, '_bslm_service_price', true);
 
-        $card_classes = array('bslm-service-card', 'bslm-tag-card');
+        $card_classes = array('bslm-tag-card');
 
         // Add image position class
         if (isset($settings['image_position']) && $settings['image_position'] !== 'top') {

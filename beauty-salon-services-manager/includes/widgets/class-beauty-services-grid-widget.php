@@ -1159,7 +1159,7 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
         $time = get_post_meta($post_id, '_bslm_service_time', true);
         $price = get_post_meta($post_id, '_bslm_service_price', true);
 
-        $card_classes = array('bslm-service-card', 'bslm-grid-card');
+        $card_classes = array('bslm-grid-card');
 
         // Add layout class
         if (isset($settings['card_layout'])) {
