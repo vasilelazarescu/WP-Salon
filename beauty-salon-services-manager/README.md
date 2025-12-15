@@ -322,7 +322,12 @@ Yes! You can use WordPress custom fields or add your own meta boxes. Use the pro
 
 ## Changelog
 
-### Version 1.0.0
+### Version 1.4.0 (2025-12-15)
+- **SECURITY FIX**: Fixed critical security vulnerability in taxonomy meta save functionality
+- Added nonce verification and capability checks for category icon uploads
+- Enhanced security following WordPress best practices
+
+### Version 1.0.0 (2025-10-21)
 - Initial release
 - Custom service post type
 - Service groups taxonomy
