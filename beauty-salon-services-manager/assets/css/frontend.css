@@ -548,6 +548,32 @@
     font-weight: 600;
 }
 
+/* Price Options List */
+.bslm-price-options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.bslm-price-option {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.bslm-price-option .bslm-sessions {
+    font-weight: 500;
+}
+
+.bslm-price-option .bslm-price-separator {
+    color: #999;
+}
+
+.bslm-price-option .bslm-price {
+    font-weight: 600;
+    color: #333;
+}
+
 /* Loading Animation */
 .bslm-services-grid.loading {
     opacity: 0.5;

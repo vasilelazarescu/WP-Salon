@@ -41,8 +41,13 @@ class BSLM_Meta_Boxes {
 
         // Retrieve current values
         $time = get_post_meta($post->ID, '_bslm_service_time', true);
-        $price = get_post_meta($post->ID, '_bslm_service_price', true);
+        $price_options = get_post_meta($post->ID, '_bslm_service_price_options', true);
         $notes = get_post_meta($post->ID, '_bslm_service_notes', true);
+
+        // Ensure price_options is an array
+        if (!is_array($price_options) || empty($price_options)) {
+            $price_options = array(array('sessions' => '1', 'price' => ''));
+        }
 
         ?>
         <div class="bslm-meta-box">
@@ -62,23 +67,44 @@ class BSLM_Meta_Boxes {
                 <span class="description"><?php _e('Enter the service duration (e.g., 30 minutes, 1 hour)', 'beauty-salon-services-manager'); ?></span>
             </p>
 
-            <p>
-                <label for="bslm_service_price">
-                    <strong><?php _e('Price', 'beauty-salon-services-manager'); ?></strong>
-                </label>
-                <br>
-                <input
-                    type="text"
-                    id="bslm_service_price"
-                    name="bslm_service_price"
-                    value="<?php echo esc_attr($price); ?>"
-                    placeholder="<?php esc_attr_e('e.g., 50.00', 'beauty-salon-services-manager'); ?>"
-                    class="widefat"
-                >
-                <span class="description"><?php _e('Enter the service price (including currency symbol if desired)', 'beauty-salon-services-manager'); ?></span>
-            </p>
+            <div class="bslm-price-options-wrapper">
+                <label><strong><?php _e('Price Options', 'beauty-salon-services-manager'); ?></strong></label>
+                <span class="description" style="display: block; margin-bottom: 10px;">
+                    <?php _e('Add different pricing tiers based on number of sessions/seances', 'beauty-salon-services-manager'); ?>
+                </span>
 
-            <p>
+                <div id="bslm-price-options-container">
+                    <?php foreach ($price_options as $index => $option) : ?>
+                        <div class="bslm-price-option-row" style="display: flex; gap: 10px; margin-bottom: 10px; align-items: center;">
+                            <input
+                                type="number"
+                                name="bslm_price_options[<?php echo $index; ?>][sessions]"
+                                value="<?php echo esc_attr($option['sessions']); ?>"
+                                placeholder="<?php esc_attr_e('Number', 'beauty-salon-services-manager'); ?>"
+                                min="1"
+                                style="width: 100px;"
+                            >
+                            <span><?php _e('seance(s)', 'beauty-salon-services-manager'); ?></span>
+                            <input
+                                type="text"
+                                name="bslm_price_options[<?php echo $index; ?>][price]"
+                                value="<?php echo esc_attr($option['price']); ?>"
+                                placeholder="<?php esc_attr_e('e.g., $50.00', 'beauty-salon-services-manager'); ?>"
+                                style="flex: 1;"
+                            >
+                            <button type="button" class="button button-secondary bslm-remove-price-option">
+                                <?php _e('Remove', 'beauty-salon-services-manager'); ?>
+                            </button>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+
+                <button type="button" class="button button-secondary" id="bslm-add-price-option" style="margin-top: 10px;">
+                    <?php _e('+ Add Price Option', 'beauty-salon-services-manager'); ?>
+                </button>
+            </div>
+
+            <p style="margin-top: 20px;">
                 <label for="bslm_service_notes">
                     <strong><?php _e('Additional Notes', 'beauty-salon-services-manager'); ?></strong>
                 </label>
@@ -93,6 +119,34 @@ class BSLM_Meta_Boxes {
                 <span class="description"><?php _e('Any additional information about this service (optional)', 'beauty-salon-services-manager'); ?></span>
             </p>
         </div>
+
+        <script>
+        jQuery(document).ready(function($) {
+            var priceOptionIndex = <?php echo count($price_options); ?>;
+
+            // Add new price option row
+            $('#bslm-add-price-option').on('click', function() {
+                var newRow = '<div class="bslm-price-option-row" style="display: flex; gap: 10px; margin-bottom: 10px; align-items: center;">' +
+                    '<input type="number" name="bslm_price_options[' + priceOptionIndex + '][sessions]" value="1" placeholder="<?php esc_attr_e('Number', 'beauty-salon-services-manager'); ?>" min="1" style="width: 100px;">' +
+                    '<span><?php _e('seance(s)', 'beauty-salon-services-manager'); ?></span>' +
+                    '<input type="text" name="bslm_price_options[' + priceOptionIndex + '][price]" value="" placeholder="<?php esc_attr_e('e.g., $50.00', 'beauty-salon-services-manager'); ?>" style="flex: 1;">' +
+                    '<button type="button" class="button button-secondary bslm-remove-price-option"><?php _e('Remove', 'beauty-salon-services-manager'); ?></button>' +
+                '</div>';
+
+                $('#bslm-price-options-container').append(newRow);
+                priceOptionIndex++;
+            });
+
+            // Remove price option row
+            $(document).on('click', '.bslm-remove-price-option', function() {
+                if ($('.bslm-price-option-row').length > 1) {
+                    $(this).closest('.bslm-price-option-row').remove();
+                } else {
+                    alert('<?php _e('You must have at least one price option', 'beauty-salon-services-manager'); ?>');
+                }
+            });
+        });
+        </script>
         <?php
     }
 
@@ -133,9 +187,18 @@ class BSLM_Meta_Boxes {
             update_post_meta($post_id, '_bslm_service_time', $time);
         }
 
-        if (isset($_POST['bslm_service_price'])) {
-            $price = sanitize_text_field($_POST['bslm_service_price']);
-            update_post_meta($post_id, '_bslm_service_price', $price);
+        if (isset($_POST['bslm_price_options']) && is_array($_POST['bslm_price_options'])) {
+            $price_options = array();
+            foreach ($_POST['bslm_price_options'] as $option) {
+                // Only save if both fields have values
+                if (!empty($option['sessions']) && !empty($option['price'])) {
+                    $price_options[] = array(
+                        'sessions' => absint($option['sessions']),
+                        'price' => sanitize_text_field($option['price']),
+                    );
+                }
+            }
+            update_post_meta($post_id, '_bslm_service_price_options', $price_options);
         }
 
         if (isset($_POST['bslm_service_notes'])) {

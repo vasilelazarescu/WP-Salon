@@ -405,11 +405,11 @@ class BSLM_Service_Meta_Widget extends \Elementor\Widget_Base {
         }
 
         $post_id = get_the_ID();
-        $price = get_post_meta($post_id, '_bslm_service_price', true);
+        $price_options = get_post_meta($post_id, '_bslm_service_price_options', true);
         $time = get_post_meta($post_id, '_bslm_service_time', true);
 
         // Check if we have data to display
-        if (($settings['show_price'] !== 'yes' || empty($price)) && ($settings['show_time'] !== 'yes' || empty($time))) {
+        if (($settings['show_price'] !== 'yes' || empty($price_options)) && ($settings['show_time'] !== 'yes' || empty($time))) {
             if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
                 echo '<p>' . __('No price or time data available for this service.', 'beauty-salon-services-manager') . '</p>';
             }
@@ -419,7 +419,7 @@ class BSLM_Service_Meta_Widget extends \Elementor\Widget_Base {
         $layout_class = 'layout-' . $settings['layout'];
         ?>
         <div id="bslm-service-meta-<?php echo esc_attr($this->get_id()); ?>" class="bslm-service-meta-widget <?php echo esc_attr($layout_class); ?>">
-            <?php if ($settings['show_price'] === 'yes' && !empty($price)) : ?>
+            <?php if ($settings['show_price'] === 'yes' && !empty($price_options) && is_array($price_options)) : ?>
                 <div class="bslm-meta-item bslm-meta-price">
                     <?php if ($settings['show_icons'] === 'yes') : ?>
                         <i class="fas fa-tag bslm-meta-icon"></i>
@@ -427,7 +427,15 @@ class BSLM_Service_Meta_Widget extends \Elementor\Widget_Base {
                     <?php if (!empty($settings['price_label'])) : ?>
                         <span class="bslm-meta-label"><?php echo esc_html($settings['price_label']); ?></span>
                     <?php endif; ?>
-                    <span class="bslm-meta-value"><?php echo esc_html(apply_filters('bslm_service_price_format', $price, $post_id)); ?></span>
+                    <div class="bslm-meta-value bslm-price-options-list">
+                        <?php foreach ($price_options as $option) : ?>
+                            <div class="bslm-price-option">
+                                <span class="bslm-sessions"><?php echo esc_html($option['sessions']); ?> <?php echo esc_html(_n('seance', 'seances', $option['sessions'], 'beauty-salon-services-manager')); ?></span>
+                                <span class="bslm-price-separator"> - </span>
+                                <span class="bslm-price"><?php echo esc_html($option['price']); ?></span>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
             <?php endif; ?>
 

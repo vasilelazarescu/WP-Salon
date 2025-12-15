@@ -1157,7 +1157,18 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
     protected function render_service_card($settings) {
         $post_id = get_the_ID();
         $time = get_post_meta($post_id, '_bslm_service_time', true);
-        $price = get_post_meta($post_id, '_bslm_service_price', true);
+        $price_options = get_post_meta($post_id, '_bslm_service_price_options', true);
+
+        // Format price display from price options
+        $price_display = '';
+        if (is_array($price_options) && !empty($price_options)) {
+            $prices = array_column($price_options, 'price');
+            if (count($prices) === 1) {
+                $price_display = $prices[0];
+            } else {
+                $price_display = sprintf(__('From %s', 'beauty-salon-services-manager'), $prices[0]);
+            }
+        }
 
         $card_classes = array('bslm-grid-card');
 
@@ -1252,7 +1263,7 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
                 }
 
                 // Meta (Time/Price)
-                if (($settings['show_time'] === 'yes' && $time) || ($settings['show_price'] === 'yes' && $price)) {
+                if (($settings['show_time'] === 'yes' && $time) || ($settings['show_price'] === 'yes' && $price_display)) {
                     ?>
                     <div class="bslm-service-meta">
                         <?php
@@ -1269,14 +1280,14 @@ class BSLM_Beauty_Services_Grid_Widget extends \Elementor\Widget_Base {
                             <?php
                         }
 
-                        if ($settings['show_price'] === 'yes' && $price) {
-                            $price = apply_filters('bslm_service_price_format', $price, $post_id);
+                        if ($settings['show_price'] === 'yes' && $price_display) {
+                            $price_display = apply_filters('bslm_service_price_format', $price_display, $post_id);
                             ?>
                             <span class="bslm-service-price">
                                 <?php if ($settings['show_meta_icons'] === 'yes') : ?>
                                     <i class="fas fa-tag"></i>
                                 <?php endif; ?>
-                                <?php echo esc_html($price); ?>
+                                <?php echo esc_html($price_display); ?>
                             </span>
                             <?php
                         }
