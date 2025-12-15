@@ -63,6 +63,9 @@ class Beauty_Salon_Services_Manager {
      * of the plugin.
      */
     private function define_admin_hooks() {
+        // Check for plugin updates and run migrations
+        $this->loader->add_action('admin_init', $this, 'check_version_and_migrate');
+
         // Register custom post types
         $post_types = new BSLM_Post_Types();
         $this->loader->add_action('init', $post_types, 'register_post_types');
@@ -402,5 +405,21 @@ class Beauty_Salon_Services_Manager {
         }
 
         return $classes;
+    }
+
+    /**
+     * Check plugin version and run migrations if needed.
+     */
+    public function check_version_and_migrate() {
+        $saved_version = get_option('bslm_version');
+
+        // If versions don't match, run migrations
+        if ($saved_version !== $this->version) {
+            require_once BSLM_PLUGIN_DIR . 'includes/class-activator.php';
+            BSLM_Activator::migrate_price_data();
+
+            // Update saved version
+            update_option('bslm_version', $this->version);
+        }
     }
 }
