@@ -5,6 +5,27 @@ All notable changes to the Beauty Salon Services Manager plugin will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.0] - 2025-12-15
+
+### Security
+- **CRITICAL**: Fixed missing nonce verification and capability checks in taxonomy meta save functionality
+  - Added nonce field to category icon add form (`bslm_save_category_icon` nonce)
+  - Added nonce field to category icon edit form
+  - Implemented nonce verification in `save_category_icon()` method
+  - Added capability check (`manage_categories`) before saving taxonomy metadata
+  - Prevents unauthorized modification of service category icons
+  - Follows WordPress security best practices for data validation
+
+### Technical Details
+- **File Modified**: `includes/class-taxonomy-meta.php`
+- **Vulnerability Type**: Missing authorization and CSRF protection
+- **Severity**: Critical
+- **Impact**: Prevents potential unauthorized users from modifying taxonomy metadata
+
+### Changed
+- Updated plugin version to 1.4.0
+- Enhanced security documentation in code comments
+
 ## [1.0.0] - 2025-10-21
 
 ### Added
@@ -255,11 +276,15 @@ beauty-salon-services-manager/
 
 | Version | Release Date | Major Changes |
 |---------|--------------|---------------|
+| 1.4.0   | 2025-12-15  | Critical security fix for taxonomy meta |
 | 1.0.0   | 2025-10-21  | Initial release |
 
 ---
 
 ## Upgrade Notices
+
+### 1.4.0
+**IMPORTANT SECURITY UPDATE**: This release fixes a critical security vulnerability in the taxonomy meta save functionality. All users are strongly encouraged to update immediately. The vulnerability could allow unauthorized users to modify service category metadata.
 
 ### 1.0.0
 Initial release. No upgrade necessary.
