@@ -961,15 +961,10 @@ class BSLM_Services_By_Tag_Widget extends \Elementor\Widget_Base {
         $time = get_post_meta($post_id, '_bslm_service_time', true);
         $price_options = get_post_meta($post_id, '_bslm_service_price_options', true);
 
-        // Format price display from price options
+        // Get first price option for card display
         $price_display = '';
         if (is_array($price_options) && !empty($price_options)) {
-            $prices = array_column($price_options, 'price');
-            if (count($prices) === 1) {
-                $price_display = $prices[0];
-            } else {
-                $price_display = sprintf(__('From %s', 'beauty-salon-services-manager'), $prices[0]);
-            }
+            $price_display = $price_options[0]['price'];
         }
 
         $card_classes = array('bslm-tag-card');
