@@ -31,6 +31,8 @@ class BSLM_Taxonomy_Meta {
      * Add icon field to category add form.
      */
     public function add_category_icon_field($taxonomy) {
+        // Add nonce field for security
+        wp_nonce_field('bslm_save_category_icon', 'bslm_category_icon_nonce');
         ?>
         <div class="form-field term-icon-wrap">
             <label for="bslm_category_icon"><?php _e('Category Icon', 'beauty-salon-services-manager'); ?></label>
@@ -57,6 +59,9 @@ class BSLM_Taxonomy_Meta {
     public function edit_category_icon_field($term, $taxonomy) {
         $icon_id = get_term_meta($term->term_id, 'bslm_category_icon', true);
         $icon_url = $icon_id ? wp_get_attachment_url($icon_id) : '';
+
+        // Add nonce field for security
+        wp_nonce_field('bslm_save_category_icon', 'bslm_category_icon_nonce');
         ?>
         <tr class="form-field term-icon-wrap">
             <th scope="row">
@@ -87,8 +92,26 @@ class BSLM_Taxonomy_Meta {
 
     /**
      * Save category icon.
+     *
+     * @param int $term_id The term ID.
      */
     public function save_category_icon($term_id) {
+        // Check if nonce is set
+        if (!isset($_POST['bslm_category_icon_nonce'])) {
+            return;
+        }
+
+        // Verify nonce
+        if (!wp_verify_nonce($_POST['bslm_category_icon_nonce'], 'bslm_save_category_icon')) {
+            return;
+        }
+
+        // Check user permissions
+        if (!current_user_can('manage_categories')) {
+            return;
+        }
+
+        // Save or delete the icon
         if (isset($_POST['bslm_category_icon'])) {
             $icon_id = absint($_POST['bslm_category_icon']);
             if ($icon_id) {
