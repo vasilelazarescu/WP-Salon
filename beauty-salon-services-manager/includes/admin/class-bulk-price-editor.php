@@ -212,7 +212,7 @@ class BSLM_Bulk_Price_Editor {
     }
 
     /**
-     * Modify search query to search only in post_title.
+     * Modify search query to search only in post_title with exact match.
      *
      * @param string $search Search SQL.
      * @param WP_Query $wp_query Query object.
@@ -230,12 +230,8 @@ class BSLM_Bulk_Price_Editor {
             return $search;
         }
 
-        // Build custom search query that only searches post_title
-        $search = '';
-        $search_term = $wpdb->esc_like($search_term);
-        $search_term = '%' . $search_term . '%';
-
-        $search = $wpdb->prepare(" AND {$wpdb->posts}.post_title LIKE %s ", $search_term);
+        // Build custom search query for exact match in post_title only
+        $search = $wpdb->prepare(" AND {$wpdb->posts}.post_title = %s ", $search_term);
 
         return $search;
     }
