@@ -535,6 +535,30 @@ class BSLM_Service_Pricing_Widget extends \Elementor\Widget_Base {
         );
 
         $this->add_responsive_control(
+            'package_card_min_height',
+            [
+                'label' => __('Min Height', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'size_units' => ['px', 'em', 'vh'],
+                'range' => [
+                    'px' => [
+                        'min' => 0,
+                        'max' => 500,
+                        'step' => 5,
+                    ],
+                    'em' => [
+                        'min' => 0,
+                        'max' => 30,
+                        'step' => 0.5,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .bslm-package-card' => 'min-height: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_responsive_control(
             'package_gap',
             [
                 'label' => __('Gap Between Cards', 'beauty-salon-services-manager'),
