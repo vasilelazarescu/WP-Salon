@@ -162,10 +162,10 @@ class BSLM_Service_Pricing_Widget extends \Elementor\Widget_Base {
             [
                 'label' => __('Savings Display Format', 'beauty-salon-services-manager'),
                 'type' => \Elementor\Controls_Manager::SELECT,
-                'default' => 'percentage',
+                'default' => 'amount',
                 'options' => [
-                    'percentage' => __('Percentage (%)', 'beauty-salon-services-manager'),
                     'amount' => __('Amount (€)', 'beauty-salon-services-manager'),
+                    'percentage' => __('Percentage (%)', 'beauty-salon-services-manager'),
                     'both' => __('Both (Amount + %)', 'beauty-salon-services-manager'),
                 ],
                 'condition' => [
@@ -658,18 +658,18 @@ class BSLM_Service_Pricing_Widget extends \Elementor\Widget_Base {
                             // Format savings display based on user preference
                             $savings_display = '';
                             if ($savings_percentage > 0 || $savings_amount > 0) {
-                                $format = isset($settings['savings_format']) ? $settings['savings_format'] : 'percentage';
+                                $format = isset($settings['savings_format']) ? $settings['savings_format'] : 'amount';
 
                                 switch ($format) {
-                                    case 'amount':
-                                        $savings_display = number_format($savings_amount, 0, ',', ' ') . $currency;
+                                    case 'percentage':
+                                        $savings_display = $savings_percentage . '%';
                                         break;
                                     case 'both':
                                         $savings_display = number_format($savings_amount, 0, ',', ' ') . $currency . ' (' . $savings_percentage . '%)';
                                         break;
-                                    case 'percentage':
+                                    case 'amount':
                                     default:
-                                        $savings_display = $savings_percentage . '%';
+                                        $savings_display = number_format($savings_amount, 0, ',', ' ') . $currency;
                                         break;
                                 }
                             }
