@@ -44,6 +44,10 @@
             // Bulk operations
             $('#apply-percentage').on('click', this.applyPercentage);
             $('#apply-fixed').on('click', this.applyFixed);
+
+            // Column visibility controls
+            $('.bslm-toggle-column-controls').on('click', BulkPriceEditor.toggleColumnControls);
+            $('.bslm-column-toggle').on('change', BulkPriceEditor.handleColumnToggle);
         },
 
         /**
@@ -366,6 +370,73 @@
                     $message.remove();
                 });
             }, 5000);
+        },
+
+        /**
+         * Toggle column controls visibility
+         */
+        toggleColumnControls: function(e) {
+            e.preventDefault();
+            const $checkboxes = $('.bslm-column-checkboxes');
+            const $icon = $(this).find('.dashicons');
+
+            $checkboxes.slideToggle(300);
+
+            // Toggle icon
+            if ($checkboxes.is(':visible')) {
+                $icon.removeClass('dashicons-arrow-down-alt2').addClass('dashicons-arrow-up-alt2');
+            } else {
+                $icon.removeClass('dashicons-arrow-up-alt2').addClass('dashicons-arrow-down-alt2');
+            }
+        },
+
+        /**
+         * Handle column visibility toggle
+         */
+        handleColumnToggle: function() {
+            const $checkbox = $(this);
+            const column = $checkbox.data('column');
+            const isVisible = $checkbox.prop('checked');
+
+            // Toggle column visibility immediately
+            if (isVisible) {
+                $('.column-' + column).show();
+            } else {
+                $('.column-' + column).hide();
+            }
+
+            // Collect all visible columns
+            const visibleColumns = [];
+            $('.bslm-column-toggle:checked').each(function() {
+                const col = $(this).data('column');
+                // Convert data attribute format to user meta format
+                if (col.startsWith('tier-')) {
+                    visibleColumns.push(col.replace('tier-', 'tier_'));
+                } else if (col === 'base-price') {
+                    visibleColumns.push('base_price');
+                } else {
+                    visibleColumns.push(col);
+                }
+            });
+
+            // Save to user meta via AJAX
+            $.ajax({
+                url: bslmBulkEditor.ajaxurl,
+                type: 'POST',
+                data: {
+                    action: 'bslm_save_column_visibility',
+                    nonce: bslmBulkEditor.nonce,
+                    columns: visibleColumns
+                },
+                success: function(response) {
+                    if (response.success) {
+                        console.log('Column visibility saved');
+                    }
+                },
+                error: function() {
+                    console.error('Failed to save column visibility');
+                }
+            });
         }
     };
 

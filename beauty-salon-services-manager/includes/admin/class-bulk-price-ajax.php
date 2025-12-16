@@ -14,6 +14,7 @@ class BSLM_Bulk_Price_Ajax {
         add_action('wp_ajax_bslm_update_service_prices', array($this, 'update_service_prices'));
         add_action('wp_ajax_bslm_bulk_apply_percentage', array($this, 'bulk_apply_percentage'));
         add_action('wp_ajax_bslm_bulk_apply_fixed', array($this, 'bulk_apply_fixed'));
+        add_action('wp_ajax_bslm_save_column_visibility', array($this, 'save_column_visibility'));
     }
 
     /**
@@ -245,5 +246,37 @@ class BSLM_Bulk_Price_Ajax {
         $formatted = rtrim(rtrim($formatted, '0'), '.');
 
         return $formatted . $currency;
+    }
+
+    /**
+     * Save column visibility preferences via AJAX.
+     */
+    public function save_column_visibility() {
+        check_ajax_referer('bslm_bulk_price_nonce', 'nonce');
+
+        if (!current_user_can('edit_posts')) {
+            wp_send_json_error(array('message' => __('Permission denied', 'beauty-salon-services-manager')));
+        }
+
+        $columns = isset($_POST['columns']) ? array_map('sanitize_text_field', $_POST['columns']) : array();
+        $user_id = get_current_user_id();
+
+        // Validate column names
+        $allowed_columns = array('category', 'tags', 'parent', 'base_price', 'actions');
+        $validated_columns = array();
+
+        foreach ($columns as $column) {
+            // Check if it's a tier column or an allowed column
+            if (in_array($column, $allowed_columns) || strpos($column, 'tier_') === 0) {
+                $validated_columns[] = $column;
+            }
+        }
+
+        update_user_meta($user_id, 'bslm_bulk_editor_columns', $validated_columns);
+
+        wp_send_json_success(array(
+            'message' => __('Column visibility saved', 'beauty-salon-services-manager'),
+            'columns' => $validated_columns,
+        ));
     }
 }

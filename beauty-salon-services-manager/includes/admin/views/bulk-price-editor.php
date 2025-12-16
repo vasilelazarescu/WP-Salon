@@ -57,12 +57,78 @@ if (!defined('ABSPATH')) {
                 </select>
             </div>
 
+            <div class="bslm-filter-group">
+                <label for="bslm-tag-filter">
+                    <span class="dashicons dashicons-tag"></span>
+                    <?php esc_html_e('Tag:', 'beauty-salon-services-manager'); ?>
+                </label>
+                <select id="bslm-tag-filter" name="tag" class="bslm-tag-select">
+                    <option value="0"><?php esc_html_e('All Tags', 'beauty-salon-services-manager'); ?></option>
+                    <?php foreach ($tags as $tag) : ?>
+                        <option value="<?php echo esc_attr($tag->term_id); ?>" <?php selected($tag_filter, $tag->term_id); ?>>
+                            <?php echo esc_html($tag->name); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div class="bslm-filter-group">
+                <label for="bslm-parent-filter">
+                    <span class="dashicons dashicons-networking"></span>
+                    <?php esc_html_e('Hierarchy:', 'beauty-salon-services-manager'); ?>
+                </label>
+                <select id="bslm-parent-filter" name="parent" class="bslm-parent-select">
+                    <option value=""><?php esc_html_e('All Services', 'beauty-salon-services-manager'); ?></option>
+                    <option value="parent_only" <?php selected($parent_filter, 'parent_only'); ?>><?php esc_html_e('Parent Services Only', 'beauty-salon-services-manager'); ?></option>
+                    <option value="children_only" <?php selected($parent_filter, 'children_only'); ?>><?php esc_html_e('Child Services Only', 'beauty-salon-services-manager'); ?></option>
+                    <?php if (!empty($parent_services)) : ?>
+                        <optgroup label="<?php esc_attr_e('Children of:', 'beauty-salon-services-manager'); ?>">
+                            <?php foreach ($parent_services as $parent_service) : ?>
+                                <option value="<?php echo esc_attr($parent_service->ID); ?>" <?php selected($parent_filter, $parent_service->ID); ?>>
+                                    <?php echo esc_html($parent_service->post_title); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </optgroup>
+                    <?php endif; ?>
+                </select>
+            </div>
+
+            <div class="bslm-filter-group">
+                <label for="bslm-min-price">
+                    <span class="dashicons dashicons-money-alt"></span>
+                    <?php esc_html_e('Price Range:', 'beauty-salon-services-manager'); ?>
+                </label>
+                <div class="bslm-price-range">
+                    <input
+                        type="number"
+                        id="bslm-min-price"
+                        name="min_price"
+                        value="<?php echo esc_attr($min_price); ?>"
+                        placeholder="<?php esc_attr_e('Min', 'beauty-salon-services-manager'); ?>"
+                        step="0.01"
+                        min="0"
+                        class="small-text"
+                    >
+                    <span class="bslm-range-separator">—</span>
+                    <input
+                        type="number"
+                        id="bslm-max-price"
+                        name="max_price"
+                        value="<?php echo esc_attr($max_price); ?>"
+                        placeholder="<?php esc_attr_e('Max', 'beauty-salon-services-manager'); ?>"
+                        step="0.01"
+                        min="0"
+                        class="small-text"
+                    >
+                </div>
+            </div>
+
             <button type="submit" class="button button-secondary">
                 <span class="dashicons dashicons-filter" style="margin-top: 3px;"></span>
                 <?php esc_html_e('Apply Filters', 'beauty-salon-services-manager'); ?>
             </button>
 
-            <?php if (!empty($search) || $category_filter > 0) : ?>
+            <?php if (!empty($search) || $category_filter > 0 || $tag_filter > 0 || !empty($parent_filter) || $min_price > 0 || $max_price > 0) : ?>
                 <a href="<?php echo esc_url(admin_url('edit.php?post_type=bslm_service&page=bslm-bulk-prices')); ?>" class="button button-secondary">
                     <span class="dashicons dashicons-dismiss" style="margin-top: 3px;"></span>
                     <?php esc_html_e('Clear Filters', 'beauty-salon-services-manager'); ?>
@@ -140,6 +206,59 @@ if (!defined('ABSPATH')) {
         </div>
     </div>
 
+    <!-- Column Visibility Controls -->
+    <?php if (!empty($services)) : ?>
+        <div class="bslm-column-controls">
+            <div class="bslm-column-controls-header">
+                <h3>
+                    <span class="dashicons dashicons-visibility"></span>
+                    <?php esc_html_e('Column Visibility', 'beauty-salon-services-manager'); ?>
+                </h3>
+                <button type="button" class="button button-small bslm-toggle-column-controls">
+                    <span class="dashicons dashicons-arrow-down-alt2"></span>
+                    <?php esc_html_e('Toggle', 'beauty-salon-services-manager'); ?>
+                </button>
+            </div>
+            <div class="bslm-column-checkboxes" style="display: none;">
+                <label>
+                    <input type="checkbox" class="bslm-column-toggle" data-column="service-name" checked disabled>
+                    <?php esc_html_e('Service Name', 'beauty-salon-services-manager'); ?>
+                    <small>(<?php esc_html_e('required', 'beauty-salon-services-manager'); ?>)</small>
+                </label>
+                <label>
+                    <input type="checkbox" class="bslm-column-toggle" data-column="category" <?php checked(in_array('category', $visible_columns)); ?>>
+                    <?php esc_html_e('Category', 'beauty-salon-services-manager'); ?>
+                </label>
+                <label>
+                    <input type="checkbox" class="bslm-column-toggle" data-column="tags" <?php checked(in_array('tags', $visible_columns)); ?>>
+                    <?php esc_html_e('Tags', 'beauty-salon-services-manager'); ?>
+                </label>
+                <label>
+                    <input type="checkbox" class="bslm-column-toggle" data-column="parent" <?php checked(in_array('parent', $visible_columns)); ?>>
+                    <?php esc_html_e('Parent Service', 'beauty-salon-services-manager'); ?>
+                </label>
+                <label>
+                    <input type="checkbox" class="bslm-column-toggle" data-column="base-price" <?php checked(in_array('base_price', $visible_columns)); ?>>
+                    <?php esc_html_e('Base Price', 'beauty-salon-services-manager'); ?>
+                </label>
+                <?php foreach ($tier_columns as $tier) : ?>
+                    <label>
+                        <input type="checkbox" class="bslm-column-toggle" data-column="tier-<?php echo esc_attr($tier); ?>" <?php checked(in_array('tier_' . $tier, $visible_columns)); ?>>
+                        <?php
+                        /* translators: %d: number of sessions */
+                        printf(esc_html__('%d Session(s)', 'beauty-salon-services-manager'), $tier);
+                        ?>
+                    </label>
+                <?php endforeach; ?>
+                <label>
+                    <input type="checkbox" class="bslm-column-toggle" data-column="actions" checked disabled>
+                    <?php esc_html_e('Actions', 'beauty-salon-services-manager'); ?>
+                    <small>(<?php esc_html_e('required', 'beauty-salon-services-manager'); ?>)</small>
+                </label>
+            </div>
+        </div>
+    <?php endif; ?>
+
     <!-- Services Table -->
     <div class="bslm-services-table-wrapper">
         <?php if (empty($services)) : ?>
@@ -164,12 +283,36 @@ if (!defined('ABSPATH')) {
                         <th class="column-service-name">
                             <?php esc_html_e('Service Name', 'beauty-salon-services-manager'); ?>
                         </th>
-                        <th class="column-category">
-                            <?php esc_html_e('Category', 'beauty-salon-services-manager'); ?>
-                        </th>
-                        <th class="column-base-price">
-                            <?php esc_html_e('Base Price', 'beauty-salon-services-manager'); ?>
-                        </th>
+                        <?php if (in_array('category', $visible_columns)) : ?>
+                            <th class="column-category">
+                                <?php esc_html_e('Category', 'beauty-salon-services-manager'); ?>
+                            </th>
+                        <?php endif; ?>
+                        <?php if (in_array('tags', $visible_columns)) : ?>
+                            <th class="column-tags">
+                                <?php esc_html_e('Tags', 'beauty-salon-services-manager'); ?>
+                            </th>
+                        <?php endif; ?>
+                        <?php if (in_array('parent', $visible_columns)) : ?>
+                            <th class="column-parent">
+                                <?php esc_html_e('Parent', 'beauty-salon-services-manager'); ?>
+                            </th>
+                        <?php endif; ?>
+                        <?php if (in_array('base_price', $visible_columns)) : ?>
+                            <th class="column-base-price">
+                                <?php esc_html_e('Base Price', 'beauty-salon-services-manager'); ?>
+                            </th>
+                        <?php endif; ?>
+                        <?php foreach ($tier_columns as $tier) : ?>
+                            <?php if (in_array('tier_' . $tier, $visible_columns)) : ?>
+                                <th class="column-tier-<?php echo esc_attr($tier); ?>">
+                                    <?php
+                                    /* translators: %d: number of sessions */
+                                    printf(esc_html__('%d Session(s)', 'beauty-salon-services-manager'), $tier);
+                                    ?>
+                                </th>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
                         <th class="column-actions">
                             <?php esc_html_e('Actions', 'beauty-salon-services-manager'); ?>
                         </th>
@@ -177,6 +320,18 @@ if (!defined('ABSPATH')) {
                 </thead>
                 <tbody>
                     <?php foreach ($services as $service) : ?>
+                        <?php
+                        // Calculate colspan for price details row
+                        $colspan = 2; // checkbox + service name (always visible)
+                        if (in_array('category', $visible_columns)) $colspan++;
+                        if (in_array('tags', $visible_columns)) $colspan++;
+                        if (in_array('parent', $visible_columns)) $colspan++;
+                        if (in_array('base_price', $visible_columns)) $colspan++;
+                        foreach ($tier_columns as $tier) {
+                            if (in_array('tier_' . $tier, $visible_columns)) $colspan++;
+                        }
+                        $colspan++; // actions column (always visible)
+                        ?>
                         <tr class="bslm-service-row" data-service-id="<?php echo esc_attr($service['id']); ?>">
                             <th class="check-column">
                                 <input
@@ -193,21 +348,64 @@ if (!defined('ABSPATH')) {
                                     </a>
                                 </strong>
                             </td>
-                            <td class="column-category">
-                                <?php
-                                if (!empty($service['categories'])) {
-                                    $cat_names = array_map(function($cat) {
-                                        return $cat->name;
-                                    }, $service['categories']);
-                                    echo esc_html(implode(', ', $cat_names));
-                                } else {
-                                    echo '<span style="color: var(--bslm-gray-400);">—</span>';
-                                }
-                                ?>
-                            </td>
-                            <td class="column-base-price">
-                                <?php echo esc_html(BSLM_Bulk_Price_Editor::get_base_price($service['price_options'])); ?>
-                            </td>
+                            <?php if (in_array('category', $visible_columns)) : ?>
+                                <td class="column-category">
+                                    <?php
+                                    if (!empty($service['categories'])) {
+                                        $cat_names = array_map(function($cat) {
+                                            return $cat->name;
+                                        }, $service['categories']);
+                                        echo esc_html(implode(', ', $cat_names));
+                                    } else {
+                                        echo '<span style="color: var(--bslm-gray-400);">—</span>';
+                                    }
+                                    ?>
+                                </td>
+                            <?php endif; ?>
+                            <?php if (in_array('tags', $visible_columns)) : ?>
+                                <td class="column-tags">
+                                    <?php
+                                    if (!empty($service['tags'])) {
+                                        $tag_names = array_map(function($tag) {
+                                            return $tag->name;
+                                        }, $service['tags']);
+                                        echo esc_html(implode(', ', $tag_names));
+                                    } else {
+                                        echo '<span style="color: var(--bslm-gray-400);">—</span>';
+                                    }
+                                    ?>
+                                </td>
+                            <?php endif; ?>
+                            <?php if (in_array('parent', $visible_columns)) : ?>
+                                <td class="column-parent">
+                                    <?php
+                                    if (!empty($service['parent_title'])) {
+                                        echo esc_html($service['parent_title']);
+                                    } else {
+                                        echo '<span style="color: var(--bslm-gray-400);">—</span>';
+                                    }
+                                    ?>
+                                </td>
+                            <?php endif; ?>
+                            <?php if (in_array('base_price', $visible_columns)) : ?>
+                                <td class="column-base-price">
+                                    <?php echo esc_html(BSLM_Bulk_Price_Editor::get_base_price($service['price_options'])); ?>
+                                </td>
+                            <?php endif; ?>
+                            <?php foreach ($tier_columns as $tier) : ?>
+                                <?php if (in_array('tier_' . $tier, $visible_columns)) : ?>
+                                    <td class="column-tier-<?php echo esc_attr($tier); ?>">
+                                        <?php
+                                        $tier_price = BSLM_Bulk_Price_Editor::get_price_for_tier($service['price_options'], $tier);
+                                        if (!empty($tier_price)) {
+                                            echo esc_html($tier_price);
+                                        } else {
+                                            echo '<span style="color: var(--bslm-gray-400);">—</span>';
+                                        }
+                                        ?>
+                                    </td>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
                             <td class="column-actions">
                                 <button type="button" class="button button-small bslm-toggle-edit">
                                     <span class="dashicons dashicons-edit" style="margin-top: 3px;"></span>
@@ -216,7 +414,7 @@ if (!defined('ABSPATH')) {
                             </td>
                         </tr>
                         <tr class="bslm-price-details" style="display: none;">
-                            <td colspan="5">
+                            <td colspan="<?php echo esc_attr($colspan); ?>">
                                 <div class="bslm-price-editor">
                                     <h3>
                                         <span class="dashicons dashicons-tag" style="color: var(--bslm-primary); margin-left: -4px;"></span>

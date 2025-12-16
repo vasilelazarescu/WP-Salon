@@ -856,6 +856,149 @@
 }
 
 /* ==========================================================================
+   Price Range Filter
+   ========================================================================== */
+
+.bslm-price-range {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.bslm-price-range input {
+    width: 80px;
+}
+
+.bslm-range-separator {
+    color: var(--bslm-gray-400);
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   Column Visibility Controls
+   ========================================================================== */
+
+.bslm-column-controls {
+    background: #ffffff;
+    border-radius: var(--bslm-radius-lg);
+    box-shadow: var(--bslm-shadow);
+    margin-bottom: 24px;
+    border: 1px solid var(--bslm-gray-200);
+    overflow: hidden;
+}
+
+.bslm-column-controls-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background: var(--bslm-gray-50);
+    border-bottom: 1px solid var(--bslm-gray-200);
+}
+
+.bslm-column-controls-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--bslm-gray-900);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.bslm-column-controls-header .dashicons {
+    color: var(--bslm-primary);
+    font-size: 20px;
+}
+
+.bslm-toggle-column-controls {
+    background: white;
+    border: 2px solid var(--bslm-gray-300);
+    color: var(--bslm-gray-700);
+    border-radius: var(--bslm-radius);
+    padding: 6px 12px;
+    font-weight: 500;
+    font-size: 13px;
+    transition: var(--bslm-transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.bslm-toggle-column-controls:hover {
+    background: var(--bslm-gray-100);
+    border-color: var(--bslm-gray-400);
+}
+
+.bslm-column-checkboxes {
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+    border-top: 1px solid var(--bslm-gray-200);
+}
+
+.bslm-column-checkboxes label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: var(--bslm-radius);
+    cursor: pointer;
+    transition: var(--bslm-transition);
+    background: var(--bslm-gray-50);
+    border: 1px solid var(--bslm-gray-200);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--bslm-gray-700);
+}
+
+.bslm-column-checkboxes label:hover {
+    background: var(--bslm-gray-100);
+    border-color: var(--bslm-gray-300);
+}
+
+.bslm-column-checkboxes input[type="checkbox"] {
+    margin: 0;
+    cursor: pointer;
+}
+
+.bslm-column-checkboxes input[type="checkbox"]:disabled {
+    cursor: not-allowed;
+}
+
+.bslm-column-checkboxes small {
+    color: var(--bslm-gray-500);
+    font-size: 11px;
+    font-weight: 400;
+}
+
+/* ==========================================================================
+   Additional Table Columns
+   ========================================================================== */
+
+.bslm-services-table .column-tags,
+.bslm-services-table .column-parent {
+    width: 15%;
+    color: var(--bslm-gray-600);
+    font-size: 13px;
+}
+
+.bslm-services-table th[class*="column-tier-"],
+.bslm-services-table td[class*="column-tier-"] {
+    width: 100px;
+    text-align: center;
+    font-weight: 600;
+    color: var(--bslm-gray-900);
+    font-size: 14px;
+}
+
+.bslm-services-table th[class*="column-tier-"] {
+    background: var(--bslm-primary-light);
+    color: var(--bslm-primary);
+}
+
+/* ==========================================================================
    Utility Classes
    ========================================================================== */
 
