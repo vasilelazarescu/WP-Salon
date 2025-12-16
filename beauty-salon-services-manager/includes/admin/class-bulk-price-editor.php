@@ -97,6 +97,8 @@ class BSLM_Bulk_Price_Editor {
      * @return array Array of service data.
      */
     private function get_all_services($search = '', $category_filter = 0, $tag_filter = 0, $parent_filter = '', $min_price = 0, $max_price = 0) {
+        global $wpdb;
+
         $args = array(
             'post_type' => 'bslm_service',
             'posts_per_page' => -1,
@@ -105,11 +107,21 @@ class BSLM_Bulk_Price_Editor {
             'order' => 'ASC',
         );
 
-        // Add search - use title only for more precise results
+        // Add exact title search using wpdb query
         if (!empty($search)) {
-            // Add filter to search only in post_title
-            add_filter('posts_search', array($this, 'search_by_title_only'), 10, 2);
-            $args['s'] = $search;
+            $post_ids = $wpdb->get_col(
+                $wpdb->prepare(
+                    "SELECT ID FROM {$wpdb->posts} WHERE post_type = 'bslm_service' AND post_status = 'publish' AND post_title = %s",
+                    $search
+                )
+            );
+
+            if (empty($post_ids)) {
+                // No results found, return empty array
+                return array();
+            }
+
+            $args['post__in'] = $post_ids;
         }
 
         // Add tax query
@@ -148,11 +160,6 @@ class BSLM_Bulk_Price_Editor {
         }
 
         $services = get_posts($args);
-
-        // Remove the filter after query
-        if (!empty($search)) {
-            remove_filter('posts_search', array($this, 'search_by_title_only'), 10);
-        }
 
         $services_data = array();
 
@@ -209,31 +216,6 @@ class BSLM_Bulk_Price_Editor {
         }
 
         return $services_data;
-    }
-
-    /**
-     * Modify search query to search only in post_title with exact match.
-     *
-     * @param string $search Search SQL.
-     * @param WP_Query $wp_query Query object.
-     * @return string Modified search SQL.
-     */
-    public function search_by_title_only($search, $wp_query) {
-        global $wpdb;
-
-        if (empty($search)) {
-            return $search;
-        }
-
-        $search_term = $wp_query->get('s');
-        if (empty($search_term)) {
-            return $search;
-        }
-
-        // Build custom search query for exact match in post_title only
-        $search = $wpdb->prepare(" AND {$wpdb->posts}.post_title = %s ", $search_term);
-
-        return $search;
     }
 
     /**
