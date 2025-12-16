@@ -523,6 +523,18 @@ class BSLM_Service_Pricing_Widget extends \Elementor\Widget_Base {
         );
 
         $this->add_responsive_control(
+            'package_card_margin',
+            [
+                'label' => __('Margin', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                'size_units' => ['px', 'em', '%'],
+                'selectors' => [
+                    '{{WRAPPER}} .bslm-package-card' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_responsive_control(
             'package_gap',
             [
                 'label' => __('Gap Between Cards', 'beauty-salon-services-manager'),
