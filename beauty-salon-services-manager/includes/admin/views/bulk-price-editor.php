@@ -1,6 +1,6 @@
 <?php
 /**
- * Bulk Price Editor View Template.
+ * Bulk Price Editor View Template - Modern UI/UX
  *
  * @package Beauty_Salon_Services_Manager
  * @var array $services Array of service data
@@ -58,11 +58,13 @@ if (!defined('ABSPATH')) {
             </div>
 
             <button type="submit" class="button button-secondary">
+                <span class="dashicons dashicons-filter" style="margin-top: 3px;"></span>
                 <?php esc_html_e('Apply Filters', 'beauty-salon-services-manager'); ?>
             </button>
 
             <?php if (!empty($search) || $category_filter > 0) : ?>
                 <a href="<?php echo esc_url(admin_url('edit.php?post_type=bslm_service&page=bslm-bulk-prices')); ?>" class="button button-secondary">
+                    <span class="dashicons dashicons-dismiss" style="margin-top: 3px;"></span>
                     <?php esc_html_e('Clear Filters', 'beauty-salon-services-manager'); ?>
                 </a>
             <?php endif; ?>
@@ -72,48 +74,65 @@ if (!defined('ABSPATH')) {
     <!-- Bulk Operations Section -->
     <div class="bslm-bulk-operations">
         <div class="bslm-bulk-header">
-            <h2><?php esc_html_e('Bulk Operations', 'beauty-salon-services-manager'); ?></h2>
+            <h2>
+                <span class="dashicons dashicons-admin-tools"></span>
+                <?php esc_html_e('Bulk Operations', 'beauty-salon-services-manager'); ?>
+            </h2>
             <p class="description">
                 <?php esc_html_e('Select services below and apply changes to multiple items at once.', 'beauty-salon-services-manager'); ?>
             </p>
         </div>
 
         <div class="bslm-bulk-actions">
+            <!-- Percentage Operation -->
             <div class="bslm-bulk-action-group">
-                <label for="bulk-percentage">
-                    <?php esc_html_e('Apply Percentage:', 'beauty-salon-services-manager'); ?>
-                </label>
-                <input
-                    type="number"
-                    id="bulk-percentage"
-                    step="0.1"
-                    placeholder="10"
-                    class="small-text"
-                >
-                <span class="bslm-unit">%</span>
-                <button type="button" id="apply-percentage" class="button button-primary">
-                    <?php esc_html_e('Apply to Selected', 'beauty-salon-services-manager'); ?>
-                </button>
+                <div class="bslm-bulk-action-header">
+                    <span class="dashicons dashicons-chart-line" style="color: var(--bslm-primary);"></span>
+                    <label for="bulk-percentage">
+                        <?php esc_html_e('Apply Percentage Change', 'beauty-salon-services-manager'); ?>
+                    </label>
+                </div>
+                <div class="bslm-bulk-input-group">
+                    <input
+                        type="number"
+                        id="bulk-percentage"
+                        step="0.1"
+                        placeholder="10"
+                        class="small-text"
+                    >
+                    <span class="bslm-unit">%</span>
+                    <button type="button" id="apply-percentage" class="button button-primary">
+                        <span class="dashicons dashicons-yes-alt" style="margin-top: 4px;"></span>
+                        <?php esc_html_e('Apply to Selected', 'beauty-salon-services-manager'); ?>
+                    </button>
+                </div>
                 <p class="description">
                     <?php esc_html_e('Enter positive number to increase (e.g., 10 for +10%) or negative to decrease (e.g., -5 for -5%)', 'beauty-salon-services-manager'); ?>
                 </p>
             </div>
 
+            <!-- Fixed Amount Operation -->
             <div class="bslm-bulk-action-group">
-                <label for="bulk-fixed">
-                    <?php esc_html_e('Apply Fixed Amount:', 'beauty-salon-services-manager'); ?>
-                </label>
-                <input
-                    type="number"
-                    id="bulk-fixed"
-                    step="0.1"
-                    placeholder="5"
-                    class="small-text"
-                >
-                <span class="bslm-unit">€</span>
-                <button type="button" id="apply-fixed" class="button button-primary">
-                    <?php esc_html_e('Apply to Selected', 'beauty-salon-services-manager'); ?>
-                </button>
+                <div class="bslm-bulk-action-header">
+                    <span class="dashicons dashicons-money-alt" style="color: var(--bslm-primary);"></span>
+                    <label for="bulk-fixed">
+                        <?php esc_html_e('Apply Fixed Amount', 'beauty-salon-services-manager'); ?>
+                    </label>
+                </div>
+                <div class="bslm-bulk-input-group">
+                    <input
+                        type="number"
+                        id="bulk-fixed"
+                        step="0.1"
+                        placeholder="5"
+                        class="small-text"
+                    >
+                    <span class="bslm-unit">€</span>
+                    <button type="button" id="apply-fixed" class="button button-primary">
+                        <span class="dashicons dashicons-yes-alt" style="margin-top: 4px;"></span>
+                        <?php esc_html_e('Apply to Selected', 'beauty-salon-services-manager'); ?>
+                    </button>
+                </div>
                 <p class="description">
                     <?php esc_html_e('Enter positive number to add (e.g., 5 for +5€) or negative to subtract (e.g., -2 for -2€)', 'beauty-salon-services-manager'); ?>
                 </p>
@@ -125,14 +144,22 @@ if (!defined('ABSPATH')) {
     <div class="bslm-services-table-wrapper">
         <?php if (empty($services)) : ?>
             <div class="bslm-no-services">
-                <p><?php esc_html_e('No services found.', 'beauty-salon-services-manager'); ?></p>
+                <span class="dashicons dashicons-info" style="font-size: 48px; color: var(--bslm-gray-400); margin-bottom: 16px;"></span>
+                <p><?php esc_html_e('No services found matching your criteria.', 'beauty-salon-services-manager'); ?></p>
+                <?php if (!empty($search) || $category_filter > 0) : ?>
+                    <p>
+                        <a href="<?php echo esc_url(admin_url('edit.php?post_type=bslm_service&page=bslm-bulk-prices')); ?>" class="button button-primary" style="margin-top: 12px;">
+                            <?php esc_html_e('Show All Services', 'beauty-salon-services-manager'); ?>
+                        </a>
+                    </p>
+                <?php endif; ?>
             </div>
         <?php else : ?>
             <table class="wp-list-table widefat fixed striped bslm-services-table">
                 <thead>
                     <tr>
                         <td class="check-column">
-                            <input type="checkbox" id="select-all-services">
+                            <input type="checkbox" id="select-all-services" title="<?php esc_attr_e('Select all services', 'beauty-salon-services-manager'); ?>">
                         </td>
                         <th class="column-service-name">
                             <?php esc_html_e('Service Name', 'beauty-salon-services-manager'); ?>
@@ -156,6 +183,7 @@ if (!defined('ABSPATH')) {
                                     type="checkbox"
                                     class="bslm-service-checkbox"
                                     value="<?php echo esc_attr($service['id']); ?>"
+                                    title="<?php echo esc_attr(sprintf(__('Select %s', 'beauty-salon-services-manager'), $service['title'])); ?>"
                                 >
                             </th>
                             <td class="column-service-name">
@@ -173,7 +201,7 @@ if (!defined('ABSPATH')) {
                                     }, $service['categories']);
                                     echo esc_html(implode(', ', $cat_names));
                                 } else {
-                                    echo '—';
+                                    echo '<span style="color: var(--bslm-gray-400);">—</span>';
                                 }
                                 ?>
                             </td>
@@ -182,6 +210,7 @@ if (!defined('ABSPATH')) {
                             </td>
                             <td class="column-actions">
                                 <button type="button" class="button button-small bslm-toggle-edit">
+                                    <span class="dashicons dashicons-edit" style="margin-top: 3px;"></span>
                                     <?php esc_html_e('Edit Prices', 'beauty-salon-services-manager'); ?>
                                 </button>
                             </td>
@@ -189,7 +218,10 @@ if (!defined('ABSPATH')) {
                         <tr class="bslm-price-details" style="display: none;">
                             <td colspan="5">
                                 <div class="bslm-price-editor">
-                                    <h3><?php esc_html_e('Price Tiers', 'beauty-salon-services-manager'); ?></h3>
+                                    <h3>
+                                        <span class="dashicons dashicons-tag" style="color: var(--bslm-primary); margin-left: -4px;"></span>
+                                        <?php esc_html_e('Price Tiers', 'beauty-salon-services-manager'); ?>
+                                    </h3>
 
                                     <div class="bslm-price-options">
                                         <?php foreach ($service['price_options'] as $index => $option) : ?>
@@ -203,6 +235,7 @@ if (!defined('ABSPATH')) {
                                                     value="<?php echo esc_attr($option['sessions']); ?>"
                                                     min="1"
                                                     data-index="<?php echo esc_attr($index); ?>"
+                                                    placeholder="1"
                                                 >
 
                                                 <label>
@@ -216,7 +249,8 @@ if (!defined('ABSPATH')) {
                                                     data-index="<?php echo esc_attr($index); ?>"
                                                 >
 
-                                                <button type="button" class="button button-secondary button-small bslm-remove-price-tier">
+                                                <button type="button" class="button button-small bslm-remove-price-tier" title="<?php esc_attr_e('Remove this price tier', 'beauty-salon-services-manager'); ?>">
+                                                    <span class="dashicons dashicons-trash" style="margin-top: 3px;"></span>
                                                     <?php esc_html_e('Remove', 'beauty-salon-services-manager'); ?>
                                                 </button>
                                             </div>
@@ -224,16 +258,18 @@ if (!defined('ABSPATH')) {
                                     </div>
 
                                     <div class="bslm-price-actions">
-                                        <button type="button" class="button button-secondary bslm-add-price-tier">
+                                        <button type="button" class="button bslm-add-price-tier">
                                             <span class="dashicons dashicons-plus-alt"></span>
                                             <?php esc_html_e('Add Price Tier', 'beauty-salon-services-manager'); ?>
                                         </button>
 
                                         <div class="bslm-save-actions">
-                                            <button type="button" class="button button-primary bslm-save-prices">
+                                            <button type="button" class="button bslm-save-prices">
+                                                <span class="dashicons dashicons-saved" style="margin-top: 4px;"></span>
                                                 <?php esc_html_e('Save Prices', 'beauty-salon-services-manager'); ?>
                                             </button>
-                                            <button type="button" class="button button-secondary bslm-cancel-edit">
+                                            <button type="button" class="button bslm-cancel-edit">
+                                                <span class="dashicons dashicons-no-alt" style="margin-top: 4px;"></span>
                                                 <?php esc_html_e('Cancel', 'beauty-salon-services-manager'); ?>
                                             </button>
                                         </div>
@@ -247,6 +283,7 @@ if (!defined('ABSPATH')) {
 
             <div class="bslm-table-footer">
                 <p class="bslm-services-count">
+                    <span class="dashicons dashicons-admin-post" style="margin-top: -2px;"></span>
                     <?php
                     /* translators: %d: number of services */
                     printf(esc_html__('Total services: %d', 'beauty-salon-services-manager'), count($services));
