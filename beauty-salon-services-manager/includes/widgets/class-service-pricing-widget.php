@@ -286,6 +286,26 @@ class BSLM_Service_Pricing_Widget extends \Elementor\Widget_Base {
         );
 
         $this->add_responsive_control(
+            'duration_padding',
+            [
+                'label' => __('Padding', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                'size_units' => ['px', 'em', '%'],
+                'selectors' => [
+                    '{{WRAPPER}} .bslm-pricing-duration' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Border::get_type(),
+            [
+                'name' => 'duration_border',
+                'selector' => '{{WRAPPER}} .bslm-pricing-duration',
+            ]
+        );
+
+        $this->add_responsive_control(
             'duration_margin',
             [
                 'label' => __('Margin', 'beauty-salon-services-manager'),
@@ -332,6 +352,26 @@ class BSLM_Service_Pricing_Widget extends \Elementor\Widget_Base {
         );
 
         $this->add_responsive_control(
+            'base_price_padding',
+            [
+                'label' => __('Padding', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                'size_units' => ['px', 'em', '%'],
+                'selectors' => [
+                    '{{WRAPPER}} .bslm-pricing-base' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Border::get_type(),
+            [
+                'name' => 'base_price_border',
+                'selector' => '{{WRAPPER}} .bslm-pricing-base',
+            ]
+        );
+
+        $this->add_responsive_control(
             'base_price_margin',
             [
                 'label' => __('Margin', 'beauty-salon-services-manager'),
@@ -374,6 +414,26 @@ class BSLM_Service_Pricing_Widget extends \Elementor\Widget_Base {
                 'selectors' => [
                     '{{WRAPPER}} .bslm-pricing-packages-header' => 'color: {{VALUE}};',
                 ],
+            ]
+        );
+
+        $this->add_responsive_control(
+            'packages_header_padding',
+            [
+                'label' => __('Padding', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                'size_units' => ['px', 'em', '%'],
+                'selectors' => [
+                    '{{WRAPPER}} .bslm-pricing-packages-header' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Border::get_type(),
+            [
+                'name' => 'packages_header_border',
+                'selector' => '{{WRAPPER}} .bslm-pricing-packages-header',
             ]
         );
 
@@ -463,6 +523,42 @@ class BSLM_Service_Pricing_Widget extends \Elementor\Widget_Base {
         );
 
         $this->add_responsive_control(
+            'package_card_margin',
+            [
+                'label' => __('Margin', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                'size_units' => ['px', 'em', '%'],
+                'selectors' => [
+                    '{{WRAPPER}} .bslm-package-card' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_responsive_control(
+            'package_card_min_height',
+            [
+                'label' => __('Min Height', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'size_units' => ['px', 'em', 'vh'],
+                'range' => [
+                    'px' => [
+                        'min' => 0,
+                        'max' => 500,
+                        'step' => 5,
+                    ],
+                    'em' => [
+                        'min' => 0,
+                        'max' => 30,
+                        'step' => 0.5,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .bslm-package-card' => 'min-height: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_responsive_control(
             'package_gap',
             [
                 'label' => __('Gap Between Cards', 'beauty-salon-services-manager'),
@@ -510,7 +606,6 @@ class BSLM_Service_Pricing_Widget extends \Elementor\Widget_Base {
             [
                 'label' => __('Hover Border Color', 'beauty-salon-services-manager'),
                 'type' => \Elementor\Controls_Manager::COLOR,
-                'default' => '#333333',
                 'selectors' => [
                     '{{WRAPPER}} .bslm-package-card:hover' => 'border-color: {{VALUE}};',
                 ],
@@ -541,7 +636,7 @@ class BSLM_Service_Pricing_Widget extends \Elementor\Widget_Base {
                 ],
                 'default' => [
                     'unit' => 'px',
-                    'size' => 4,
+                    'size' => 0,
                 ],
                 'selectors' => [
                     '{{WRAPPER}} .bslm-package-card:hover' => 'transform: translateY(-{{SIZE}}{{UNIT}});',

@@ -783,20 +783,18 @@
     background: #ffffff;
     border: 1px solid #e5e5e5;
     border-radius: 8px;
-    padding: 30px 20px;
     text-align: center;
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 180px;
+    /* Padding and min-height are now controlled via Elementor widget settings */
 }
 
+/* Hover effects are now controlled via Elementor widget settings */
 .bslm-package-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    border-color: #333333;
+    /* Default: No hover effect */
 }
 
 /* Package Sessions */
@@ -859,11 +857,6 @@
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .bslm-package-card {
-        min-height: 150px;
-        padding: 25px 20px;
-    }
-
     .bslm-package-price {
         font-size: 32px;
     }
@@ -890,11 +883,6 @@
     .bslm-packages-grid.bslm-packages-cols-3,
     .bslm-packages-grid.bslm-packages-cols-4 {
         grid-template-columns: 1fr;
-    }
-
-    .bslm-package-card {
-        padding: 20px 15px;
-        min-height: 140px;
     }
 
     .bslm-package-price {
