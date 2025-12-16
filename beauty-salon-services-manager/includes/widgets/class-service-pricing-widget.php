@@ -484,6 +484,94 @@ class BSLM_Service_Pricing_Widget extends \Elementor\Widget_Base {
             ]
         );
 
+        // Hover State Section
+        $this->add_control(
+            'package_card_hover_heading',
+            [
+                'label' => __('Hover State', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::HEADING,
+                'separator' => 'before',
+            ]
+        );
+
+        $this->add_control(
+            'package_card_hover_background',
+            [
+                'label' => __('Hover Background Color', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .bslm-package-card:hover' => 'background-color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'package_card_hover_border_color',
+            [
+                'label' => __('Hover Border Color', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'default' => '#333333',
+                'selectors' => [
+                    '{{WRAPPER}} .bslm-package-card:hover' => 'border-color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Box_Shadow::get_type(),
+            [
+                'name' => 'package_card_hover_shadow',
+                'label' => __('Hover Box Shadow', 'beauty-salon-services-manager'),
+                'selector' => '{{WRAPPER}} .bslm-package-card:hover',
+            ]
+        );
+
+        $this->add_control(
+            'package_card_hover_transform',
+            [
+                'label' => __('Hover Lift Effect', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'size_units' => ['px'],
+                'range' => [
+                    'px' => [
+                        'min' => 0,
+                        'max' => 20,
+                        'step' => 1,
+                    ],
+                ],
+                'default' => [
+                    'unit' => 'px',
+                    'size' => 4,
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .bslm-package-card:hover' => 'transform: translateY(-{{SIZE}}{{UNIT}});',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'package_card_hover_transition',
+            [
+                'label' => __('Transition Duration', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'size_units' => ['ms'],
+                'range' => [
+                    'ms' => [
+                        'min' => 0,
+                        'max' => 1000,
+                        'step' => 50,
+                    ],
+                ],
+                'default' => [
+                    'unit' => 'ms',
+                    'size' => 300,
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .bslm-package-card' => 'transition: all {{SIZE}}{{UNIT}} ease;',
+                ],
+            ]
+        );
+
         $this->end_controls_section();
 
         // Style Section - Package Text
