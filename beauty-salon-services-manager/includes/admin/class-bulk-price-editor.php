@@ -105,8 +105,10 @@ class BSLM_Bulk_Price_Editor {
             'order' => 'ASC',
         );
 
-        // Add search
+        // Add search - use title only for more precise results
         if (!empty($search)) {
+            // Add filter to search only in post_title
+            add_filter('posts_search', array($this, 'search_by_title_only'), 10, 2);
             $args['s'] = $search;
         }
 
@@ -146,6 +148,12 @@ class BSLM_Bulk_Price_Editor {
         }
 
         $services = get_posts($args);
+
+        // Remove the filter after query
+        if (!empty($search)) {
+            remove_filter('posts_search', array($this, 'search_by_title_only'), 10);
+        }
+
         $services_data = array();
 
         foreach ($services as $service) {
@@ -201,6 +209,35 @@ class BSLM_Bulk_Price_Editor {
         }
 
         return $services_data;
+    }
+
+    /**
+     * Modify search query to search only in post_title.
+     *
+     * @param string $search Search SQL.
+     * @param WP_Query $wp_query Query object.
+     * @return string Modified search SQL.
+     */
+    public function search_by_title_only($search, $wp_query) {
+        global $wpdb;
+
+        if (empty($search)) {
+            return $search;
+        }
+
+        $search_term = $wp_query->get('s');
+        if (empty($search_term)) {
+            return $search;
+        }
+
+        // Build custom search query that only searches post_title
+        $search = '';
+        $search_term = $wpdb->esc_like($search_term);
+        $search_term = '%' . $search_term . '%';
+
+        $search = $wpdb->prepare(" AND {$wpdb->posts}.post_title LIKE %s ", $search_term);
+
+        return $search;
     }
 
     /**
