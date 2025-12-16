@@ -245,6 +245,13 @@
     padding: 20px 24px;
     border-bottom: 1px solid var(--bslm-gray-200);
     background: var(--bslm-gray-50);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bslm-bulk-header > div {
+    flex: 1;
 }
 
 .bslm-bulk-header h2 {
@@ -261,6 +268,26 @@
     margin: 8px 0 0 0;
     color: var(--bslm-gray-600);
     font-size: 14px;
+}
+
+.bslm-toggle-bulk-operations {
+    background: white;
+    border: 2px solid var(--bslm-gray-300);
+    color: var(--bslm-gray-700);
+    border-radius: var(--bslm-radius);
+    padding: 6px 12px;
+    font-weight: 500;
+    font-size: 13px;
+    transition: var(--bslm-transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.bslm-toggle-bulk-operations:hover {
+    background: var(--bslm-gray-100);
+    border-color: var(--bslm-gray-400);
 }
 
 .bslm-bulk-actions {
@@ -399,13 +426,23 @@
     padding: 12px 16px;
 }
 
-.bslm-services-table tbody tr {
+.bslm-services-table tbody tr.bslm-service-row {
     transition: var(--bslm-transition);
     border-bottom: 1px solid var(--bslm-gray-200);
 }
 
-.bslm-services-table tbody tr:hover {
+/* Zebra striping - every odd service row */
+.bslm-services-table tbody tr.bslm-service-row:nth-of-type(4n+1) {
+    background-color: #ffffff;
+}
+
+/* Zebra striping - every even service row */
+.bslm-services-table tbody tr.bslm-service-row:nth-of-type(4n+3) {
     background-color: var(--bslm-gray-50);
+}
+
+.bslm-services-table tbody tr.bslm-service-row:hover {
+    background-color: var(--bslm-primary-light);
 }
 
 .bslm-services-table tbody td {
@@ -432,11 +469,6 @@
 
 .bslm-services-table .column-service-name a:hover {
     color: var(--bslm-primary);
-}
-
-.bslm-services-table .column-category {
-    width: 20%;
-    color: var(--bslm-gray-600);
 }
 
 .bslm-services-table .column-base-price {

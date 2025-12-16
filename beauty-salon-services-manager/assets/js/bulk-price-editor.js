@@ -45,6 +45,9 @@
             $('#apply-percentage').on('click', this.applyPercentage);
             $('#apply-fixed').on('click', this.applyFixed);
 
+            // Bulk operations toggle
+            $('.bslm-toggle-bulk-operations').on('click', BulkPriceEditor.toggleBulkOperations);
+
             // Column visibility controls
             $('.bslm-toggle-column-controls').on('click', BulkPriceEditor.toggleColumnControls);
             $('.bslm-column-toggle').on('change', BulkPriceEditor.handleColumnToggle);
@@ -370,6 +373,24 @@
                     $message.remove();
                 });
             }, 5000);
+        },
+
+        /**
+         * Toggle bulk operations visibility
+         */
+        toggleBulkOperations: function(e) {
+            e.preventDefault();
+            const $bulkActions = $('.bslm-bulk-actions');
+            const $icon = $(this).find('.dashicons');
+
+            $bulkActions.slideToggle(300);
+
+            // Toggle icon
+            if ($bulkActions.is(':visible')) {
+                $icon.removeClass('dashicons-arrow-down-alt2').addClass('dashicons-arrow-up-alt2');
+            } else {
+                $icon.removeClass('dashicons-arrow-up-alt2').addClass('dashicons-arrow-down-alt2');
+            }
         },
 
         /**

@@ -43,21 +43,6 @@ if (!defined('ABSPATH')) {
             </div>
 
             <div class="bslm-filter-group">
-                <label for="bslm-category-filter">
-                    <span class="dashicons dashicons-category"></span>
-                    <?php esc_html_e('Category:', 'beauty-salon-services-manager'); ?>
-                </label>
-                <select id="bslm-category-filter" name="category" class="bslm-category-select">
-                    <option value="0"><?php esc_html_e('All Categories', 'beauty-salon-services-manager'); ?></option>
-                    <?php foreach ($categories as $category) : ?>
-                        <option value="<?php echo esc_attr($category->term_id); ?>" <?php selected($category_filter, $category->term_id); ?>>
-                            <?php echo esc_html($category->name); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-
-            <div class="bslm-filter-group">
                 <label for="bslm-tag-filter">
                     <span class="dashicons dashicons-tag"></span>
                     <?php esc_html_e('Tag:', 'beauty-salon-services-manager'); ?>
@@ -128,7 +113,7 @@ if (!defined('ABSPATH')) {
                 <?php esc_html_e('Apply Filters', 'beauty-salon-services-manager'); ?>
             </button>
 
-            <?php if (!empty($search) || $category_filter > 0 || $tag_filter > 0 || !empty($parent_filter) || $min_price > 0 || $max_price > 0) : ?>
+            <?php if (!empty($search) || $tag_filter > 0 || !empty($parent_filter) || $min_price > 0 || $max_price > 0) : ?>
                 <a href="<?php echo esc_url(admin_url('edit.php?post_type=bslm_service&page=bslm-bulk-prices')); ?>" class="button button-secondary">
                     <span class="dashicons dashicons-dismiss" style="margin-top: 3px;"></span>
                     <?php esc_html_e('Clear Filters', 'beauty-salon-services-manager'); ?>
@@ -140,16 +125,22 @@ if (!defined('ABSPATH')) {
     <!-- Bulk Operations Section -->
     <div class="bslm-bulk-operations">
         <div class="bslm-bulk-header">
-            <h2>
-                <span class="dashicons dashicons-admin-tools"></span>
-                <?php esc_html_e('Bulk Operations', 'beauty-salon-services-manager'); ?>
-            </h2>
-            <p class="description">
-                <?php esc_html_e('Select services below and apply changes to multiple items at once.', 'beauty-salon-services-manager'); ?>
-            </p>
+            <div>
+                <h2>
+                    <span class="dashicons dashicons-admin-tools"></span>
+                    <?php esc_html_e('Bulk Operations', 'beauty-salon-services-manager'); ?>
+                </h2>
+                <p class="description">
+                    <?php esc_html_e('Select services below and apply changes to multiple items at once.', 'beauty-salon-services-manager'); ?>
+                </p>
+            </div>
+            <button type="button" class="button button-small bslm-toggle-bulk-operations">
+                <span class="dashicons dashicons-arrow-down-alt2"></span>
+                <?php esc_html_e('Toggle', 'beauty-salon-services-manager'); ?>
+            </button>
         </div>
 
-        <div class="bslm-bulk-actions">
+        <div class="bslm-bulk-actions" style="display: none;">
             <!-- Percentage Operation -->
             <div class="bslm-bulk-action-group">
                 <div class="bslm-bulk-action-header">
@@ -226,10 +217,6 @@ if (!defined('ABSPATH')) {
                     <small>(<?php esc_html_e('required', 'beauty-salon-services-manager'); ?>)</small>
                 </label>
                 <label>
-                    <input type="checkbox" class="bslm-column-toggle" data-column="category" <?php checked(in_array('category', $visible_columns)); ?>>
-                    <?php esc_html_e('Category', 'beauty-salon-services-manager'); ?>
-                </label>
-                <label>
                     <input type="checkbox" class="bslm-column-toggle" data-column="tags" <?php checked(in_array('tags', $visible_columns)); ?>>
                     <?php esc_html_e('Tags', 'beauty-salon-services-manager'); ?>
                 </label>
@@ -283,11 +270,6 @@ if (!defined('ABSPATH')) {
                         <th class="column-service-name">
                             <?php esc_html_e('Service Name', 'beauty-salon-services-manager'); ?>
                         </th>
-                        <?php if (in_array('category', $visible_columns)) : ?>
-                            <th class="column-category">
-                                <?php esc_html_e('Category', 'beauty-salon-services-manager'); ?>
-                            </th>
-                        <?php endif; ?>
                         <?php if (in_array('tags', $visible_columns)) : ?>
                             <th class="column-tags">
                                 <?php esc_html_e('Tags', 'beauty-salon-services-manager'); ?>
@@ -323,7 +305,6 @@ if (!defined('ABSPATH')) {
                         <?php
                         // Calculate colspan for price details row
                         $colspan = 2; // checkbox + service name (always visible)
-                        if (in_array('category', $visible_columns)) $colspan++;
                         if (in_array('tags', $visible_columns)) $colspan++;
                         if (in_array('parent', $visible_columns)) $colspan++;
                         if (in_array('base_price', $visible_columns)) $colspan++;
@@ -348,20 +329,6 @@ if (!defined('ABSPATH')) {
                                     </a>
                                 </strong>
                             </td>
-                            <?php if (in_array('category', $visible_columns)) : ?>
-                                <td class="column-category">
-                                    <?php
-                                    if (!empty($service['categories'])) {
-                                        $cat_names = array_map(function($cat) {
-                                            return $cat->name;
-                                        }, $service['categories']);
-                                        echo esc_html(implode(', ', $cat_names));
-                                    } else {
-                                        echo '<span style="color: var(--bslm-gray-400);">—</span>';
-                                    }
-                                    ?>
-                                </td>
-                            <?php endif; ?>
                             <?php if (in_array('tags', $visible_columns)) : ?>
                                 <td class="column-tags">
                                     <?php
