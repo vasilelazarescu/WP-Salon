@@ -158,6 +158,23 @@ class BSLM_Service_Pricing_Widget extends \Elementor\Widget_Base {
         );
 
         $this->add_control(
+            'savings_format',
+            [
+                'label' => __('Savings Display Format', 'beauty-salon-services-manager'),
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'default' => 'percentage',
+                'options' => [
+                    'percentage' => __('Percentage (%)', 'beauty-salon-services-manager'),
+                    'amount' => __('Amount (€)', 'beauty-salon-services-manager'),
+                    'both' => __('Both (Amount + %)', 'beauty-salon-services-manager'),
+                ],
+                'condition' => [
+                    'show_packages' => 'yes',
+                ],
+            ]
+        );
+
+        $this->add_control(
             'package_columns',
             [
                 'label' => __('Package Columns', 'beauty-salon-services-manager'),
@@ -618,15 +635,43 @@ class BSLM_Service_Pricing_Widget extends \Elementor\Widget_Base {
                             $package_price = $package['price'];
 
                             // Calculate savings
-                            $base_price_numeric = floatval(preg_replace('/[^0-9.]/', '', $base_price));
-                            $package_price_numeric = floatval(preg_replace('/[^0-9.]/', '', $package_price));
+                            $base_price_numeric = floatval(preg_replace('/[^0-9.,]/', '', str_replace(',', '.', $base_price)));
+                            $package_price_numeric = floatval(preg_replace('/[^0-9.,]/', '', str_replace(',', '.', $package_price)));
 
                             if ($base_price_numeric > 0) {
                                 $expected_price = $base_price_numeric * $sessions;
-                                $savings_percentage = (($expected_price - $package_price_numeric) / $expected_price) * 100;
+                                $savings_amount = $expected_price - $package_price_numeric;
+                                $savings_percentage = ($savings_amount / $expected_price) * 100;
                                 $savings_percentage = round($savings_percentage);
+
+                                // Extract currency symbol from price
+                                $currency = preg_replace('/[0-9.,\s]/', '', $package_price);
+                                if (empty($currency)) {
+                                    $currency = '€'; // Default to Euro
+                                }
                             } else {
                                 $savings_percentage = 0;
+                                $savings_amount = 0;
+                                $currency = '€';
+                            }
+
+                            // Format savings display based on user preference
+                            $savings_display = '';
+                            if ($savings_percentage > 0 || $savings_amount > 0) {
+                                $format = isset($settings['savings_format']) ? $settings['savings_format'] : 'percentage';
+
+                                switch ($format) {
+                                    case 'amount':
+                                        $savings_display = number_format($savings_amount, 0, ',', ' ') . $currency;
+                                        break;
+                                    case 'both':
+                                        $savings_display = number_format($savings_amount, 0, ',', ' ') . $currency . ' (' . $savings_percentage . '%)';
+                                        break;
+                                    case 'percentage':
+                                    default:
+                                        $savings_display = $savings_percentage . '%';
+                                        break;
+                                }
                             }
                         ?>
                             <div class="bslm-package-card">
@@ -637,10 +682,10 @@ class BSLM_Service_Pricing_Widget extends \Elementor\Widget_Base {
                                 <div class="bslm-package-price">
                                     <?php echo esc_html($package_price); ?>
                                 </div>
-                                <?php if ($savings_percentage > 0) : ?>
+                                <?php if (!empty($savings_display)) : ?>
                                     <div class="bslm-package-savings">
                                         <?php echo esc_html($settings['savings_text']); ?>
-                                        <?php echo esc_html($savings_percentage); ?>%
+                                        <?php echo esc_html($savings_display); ?>
                                     </div>
                                 <?php endif; ?>
                             </div>
