@@ -27,10 +27,12 @@ class BSLM_Elementor_Widget {
         require_once BSLM_PLUGIN_DIR . 'includes/widgets/class-beauty-services-grid-widget.php';
         require_once BSLM_PLUGIN_DIR . 'includes/widgets/class-service-meta-widget.php';
         require_once BSLM_PLUGIN_DIR . 'includes/widgets/class-services-by-tag-widget.php';
+        require_once BSLM_PLUGIN_DIR . 'includes/widgets/class-service-pricing-widget.php';
 
         $widgets_manager->register(new \BSLM_Beauty_Services_Grid_Widget());
         $widgets_manager->register(new \BSLM_Service_Meta_Widget());
         $widgets_manager->register(new \BSLM_Services_By_Tag_Widget());
+        $widgets_manager->register(new \BSLM_Service_Pricing_Widget());
     }
 
     /**
