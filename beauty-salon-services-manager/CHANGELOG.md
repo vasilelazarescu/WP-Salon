@@ -5,6 +5,43 @@ All notable changes to the Beauty Salon Services Manager plugin will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2025-12-16
+
+### Added
+- **Bulk Price Editor**: New admin page for efficiently managing service prices
+  - View all services with prices in one table
+  - Search and filter by service name or category
+  - Inline editing for individual service prices
+  - Edit multiple price tiers (sessions/packages) per service
+  - Add/remove price tiers dynamically
+  - Bulk operations for selected services:
+    - Apply percentage increase/decrease (e.g., +10% or -5%)
+    - Apply fixed amount increase/decrease (e.g., +5€ or -2€)
+  - Real-time AJAX saving without page reload
+  - Success/error notifications
+  - Confirmation dialogs for bulk operations
+- New admin menu item: "Bulk Prices" under Services menu
+- Responsive design for bulk price editor (desktop, tablet, mobile)
+
+### Technical Details
+- **New Files**:
+  - `includes/admin/class-bulk-price-editor.php` - Main admin page class
+  - `includes/admin/class-bulk-price-ajax.php` - AJAX handlers for price updates
+  - `includes/admin/views/bulk-price-editor.php` - View template
+  - `assets/css/bulk-price-editor.css` - Styling
+  - `assets/js/bulk-price-editor.js` - JavaScript functionality
+- **Modified Files**:
+  - `includes/class-beauty-salon-services-manager.php` - Registered new classes
+  - `beauty-salon-services-manager.php` - Updated version to 1.5.0
+- Security: All AJAX handlers include nonce verification and capability checks
+- Performance: Efficient price calculation and formatting
+- User Experience: Familiar WordPress admin table styling
+
+### Changed
+- Enhanced price management workflow with centralized editing interface
+- Improved efficiency for annual price updates and bulk adjustments
+- Reduced time to update multiple service prices from hours to minutes
+
 ## [1.4.0] - 2025-12-15
 
 ### Security

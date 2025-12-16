@@ -54,6 +54,8 @@ class Beauty_Salon_Services_Manager {
         require_once BSLM_PLUGIN_DIR . 'includes/class-meta-boxes.php';
         require_once BSLM_PLUGIN_DIR . 'includes/class-elementor-widget.php';
         require_once BSLM_PLUGIN_DIR . 'includes/class-shortcodes.php';
+        require_once BSLM_PLUGIN_DIR . 'includes/admin/class-bulk-price-editor.php';
+        require_once BSLM_PLUGIN_DIR . 'includes/admin/class-bulk-price-ajax.php';
 
         $this->loader = new BSLM_Loader();
     }
@@ -78,6 +80,10 @@ class Beauty_Salon_Services_Manager {
         $meta_boxes = new BSLM_Meta_Boxes();
         $this->loader->add_action('add_meta_boxes', $meta_boxes, 'add_meta_boxes');
         $this->loader->add_action('save_post', $meta_boxes, 'save_meta_boxes');
+
+        // Initialize bulk price editor
+        $bulk_price_editor = new BSLM_Bulk_Price_Editor();
+        $bulk_price_ajax = new BSLM_Bulk_Price_Ajax();
 
         // Enqueue admin styles and scripts
         $this->loader->add_action('admin_enqueue_scripts', $this, 'enqueue_admin_styles');

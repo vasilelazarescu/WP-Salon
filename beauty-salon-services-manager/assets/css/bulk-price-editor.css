@@ -1,0 +1,412 @@
+/**
+ * Bulk Price Editor Styles
+ *
+ * @package Beauty_Salon_Services_Manager
+ */
+
+/* ==========================================================================
+   Main Container
+   ========================================================================== */
+
+.bslm-bulk-price-editor {
+    margin-top: 20px;
+}
+
+/* ==========================================================================
+   Filters Section
+   ========================================================================== */
+
+.bslm-filters-section {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.bslm-filters-form {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.bslm-filter-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.bslm-filter-group label {
+    margin: 0;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.bslm-filter-group label .dashicons {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+.bslm-search-input {
+    min-width: 250px;
+    height: 32px;
+}
+
+.bslm-category-select {
+    height: 32px;
+    min-width: 200px;
+}
+
+/* ==========================================================================
+   Bulk Operations Section
+   ========================================================================== */
+
+.bslm-bulk-operations {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.bslm-bulk-header h2 {
+    margin-top: 0;
+    font-size: 18px;
+}
+
+.bslm-bulk-header .description {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.bslm-bulk-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.bslm-bulk-action-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 15px;
+    background: #f6f7f7;
+    border-radius: 4px;
+}
+
+.bslm-bulk-action-group label {
+    font-weight: 600;
+    margin: 0;
+}
+
+.bslm-bulk-action-group input.small-text {
+    width: 100px;
+    height: 32px;
+}
+
+.bslm-bulk-action-group .bslm-unit {
+    font-weight: 600;
+    color: #1d2327;
+}
+
+.bslm-bulk-action-group .description {
+    flex-basis: 100%;
+    margin: 5px 0 0 0;
+}
+
+/* ==========================================================================
+   Services Table
+   ========================================================================== */
+
+.bslm-services-table-wrapper {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.bslm-no-services {
+    padding: 40px;
+    text-align: center;
+}
+
+.bslm-no-services p {
+    font-size: 16px;
+    color: #646970;
+}
+
+.bslm-services-table {
+    margin: 0;
+}
+
+.bslm-services-table thead th,
+.bslm-services-table thead td {
+    background: #f6f7f7;
+}
+
+.bslm-services-table .check-column {
+    width: 2.2em;
+    padding: 8px 0 0 3px;
+}
+
+.bslm-services-table .column-service-name {
+    width: 35%;
+}
+
+.bslm-services-table .column-category {
+    width: 20%;
+}
+
+.bslm-services-table .column-base-price {
+    width: 15%;
+}
+
+.bslm-services-table .column-actions {
+    width: 15%;
+}
+
+.bslm-service-row {
+    transition: background-color 0.2s ease;
+}
+
+.bslm-service-row:hover {
+    background-color: #f6f7f7;
+}
+
+.bslm-service-checkbox {
+    margin: 0;
+}
+
+/* ==========================================================================
+   Price Details (Inline Editor)
+   ========================================================================== */
+
+.bslm-price-details {
+    background: #f9f9f9 !important;
+}
+
+.bslm-price-details td {
+    padding: 20px !important;
+}
+
+.bslm-price-editor h3 {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    color: #1d2327;
+}
+
+.bslm-price-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.bslm-price-option-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+}
+
+.bslm-price-option-row label {
+    font-weight: 600;
+    margin: 0;
+}
+
+.bslm-price-option-row input[type="number"],
+.bslm-price-option-row input[type="text"] {
+    height: 32px;
+}
+
+.bslm-sessions-input {
+    width: 100px;
+}
+
+.bslm-price-input {
+    width: 150px;
+}
+
+.bslm-remove-price-tier {
+    margin-left: auto;
+}
+
+.bslm-price-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid #dcdcde;
+}
+
+.bslm-save-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.bslm-add-price-tier .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    margin-top: 4px;
+}
+
+/* ==========================================================================
+   Table Footer
+   ========================================================================== */
+
+.bslm-table-footer {
+    padding: 15px 20px;
+    background: #f6f7f7;
+    border-top: 1px solid #c3c4c7;
+}
+
+.bslm-services-count {
+    margin: 0;
+    font-weight: 600;
+    color: #646970;
+}
+
+/* ==========================================================================
+   Loading States
+   ========================================================================== */
+
+.bslm-loading {
+    opacity: 0.6;
+    pointer-events: none;
+    position: relative;
+}
+
+.bslm-loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ==========================================================================
+   Success/Error Messages
+   ========================================================================== */
+
+.bslm-message {
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.bslm-message.success {
+    background: #d7f0df;
+    border-left: 4px solid #00a32a;
+    color: #00542e;
+}
+
+.bslm-message.error {
+    background: #f6d5d6;
+    border-left: 4px solid #d63638;
+    color: #9a0000;
+}
+
+.bslm-message .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+
+@media screen and (max-width: 782px) {
+    .bslm-filters-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .bslm-filter-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .bslm-search-input,
+    .bslm-category-select {
+        width: 100%;
+    }
+
+    .bslm-bulk-action-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .bslm-bulk-action-group input.small-text {
+        width: 100%;
+    }
+
+    .bslm-price-option-row {
+        flex-wrap: wrap;
+    }
+
+    .bslm-sessions-input,
+    .bslm-price-input {
+        width: 100%;
+    }
+
+    .bslm-remove-price-tier {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .bslm-price-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .bslm-save-actions {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .bslm-save-actions button {
+        width: 100%;
+    }
+}
+
+/* ==========================================================================
+   Utility Classes
+   ========================================================================== */
+
+.bslm-hidden {
+    display: none !important;
+}
+
+.bslm-text-center {
+    text-align: center;
+}
+
+.bslm-text-right {
+    text-align: right;
+}
+
+.bslm-mt-0 {
+    margin-top: 0 !important;
+}
+
+.bslm-mb-0 {
+    margin-bottom: 0 !important;
+}
