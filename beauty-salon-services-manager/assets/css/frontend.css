@@ -853,10 +853,10 @@
         margin-bottom: 20px;
     }
 
-    .bslm-packages-grid.bslm-packages-cols-2,
+    /* Keep 2-column layout on tablet for better display */
     .bslm-packages-grid.bslm-packages-cols-3,
     .bslm-packages-grid.bslm-packages-cols-4 {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .bslm-package-card {
@@ -884,6 +884,12 @@
 
     .bslm-pricing-packages-header {
         font-size: 20px;
+    }
+
+    /* Only stack to 1 column on very small mobile screens */
+    .bslm-packages-grid.bslm-packages-cols-3,
+    .bslm-packages-grid.bslm-packages-cols-4 {
+        grid-template-columns: 1fr;
     }
 
     .bslm-package-card {
